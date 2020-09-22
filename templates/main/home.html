@@ -1,22 +1,94 @@
 {% extends 'base.html' %}
 
-
 {% block title %}
     home
 {% endblock title %}
 
+{% block head-content %}
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
+<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400&display=swap" rel="stylesheet">
+{% endblock head-content %}
 
 {% block content %}
-{{ hello }}
-<br>
-{{ user }}
+<section>
+    <div class="bg_image">
+
+      <div class="container-fluid">
+        <div class="row">
+          <div class="col full-width">
+            <div class="logo">greenboard</div>
+
+            <a href="#">
+              <div class="login">Bejelentkezés</div>
+            </a>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col"></div>
+          <div class="title-box col-8 col-lg-6 col-xl-5">
+            <h1>Sosem volt még ilyen<h1>
+                <h1 class="changeable active">egyszerű</h1>
+                <h1 class="changeable">gyors</h1>
+                <h1 class="changeable">modern</h1>
+                <h1>órára készülni!</h1>
+
+                <button class="title-button tryit">Kipróbálom!</button>
+                <button class="title-button whatis">Mi ez?</button>
+          </div>
+          <div class="col col-md-1"></div>
+        </div>
+
+      </div>
+
+
+    </div>
+  </section>
+
+
+  <section class="white_bg">
+    <div class="more_text_holder">
+      <h1>Közösségi oldal, tanároknak</h1>
+      <p>Ossz meg dolgozatokat, prezentációkat és videókat, vagy böngéssz a többiek által megosztott anyagok közt és színesítsd az óráidat!</p>
+
+      <div class="tryit2">Kipróbálom!</div>
+    </div>
+
+  </section>
 {% endblock content %}
 
 
 {% block scripts %}
+
 <script>
-    
+
+    var slideIndex = 0;
+    showSlides();
+
+    function showSlides() {
+      console.log(slideIndex + "hi!");
+      var slides = document.getElementsByClassName("changeable");
+
+
+      let actual = slides[slideIndex];
+
+      for (let i = 0; i < slides.length; i++) {
+        if (slides[i].classList.contains("active")) {
+          slides[i].classList.remove("active");
+        }
+      }
+      actual.classList.add("active");
+      console.log(slides);
+      slideIndex++;
+      if (slideIndex >= slides.length) {
+        slideIndex = 0;
+      }
+      setTimeout(showSlides, 3000);
+    }
+
 </script>
+
 {% endblock scripts %}
-    
-    
+

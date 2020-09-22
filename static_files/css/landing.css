@@ -1,0 +1,239 @@
+section {
+    width: 100%;
+    height: 100vh;
+    font-family: 'Roboto', sans-serif;
+    color: white;
+}
+
+.bg_image{
+    width: 100vw;
+    height: 100vh;
+    background-image: url("../img/first_section_bg.png");
+    background-size: cover;
+    background-position-y: center;
+    background-color: #173027;
+    background-repeat: no-repeat;
+}
+
+
+.logo{
+
+padding-left: 73px;
+padding-top: 30px;
+
+font-weight: 200;
+font-size: 30px;
+line-height: 59px;
+
+letter-spacing: -0.05em;
+
+color: #FFFFFF;
+float: left;
+font-weight: 100;
+}
+
+.login{
+    float: right;
+    padding-right: 100px;
+    padding-top: 30px;
+
+    font-weight: 200;
+    font-size: 30px;
+    line-height: 59px;
+
+    letter-spacing: -0.05em;
+    color: #FFFFFF;
+    font-weight: 300;
+}
+
+.login:hover{
+    text-decoration: underline;
+}
+
+.container{
+    background-color: red;
+    width: 100vw;
+}
+
+.title-box{
+    margin-top: 200px;
+}
+
+.title-box h1{
+    font-size: 60px;
+    font-weight: 100;
+    text-align: right;
+}
+
+.title-box .changeable{
+    display: none; 
+    color: #FF8E41;
+    font-weight: 300;
+}
+
+.full-width{
+    grid-column: full;
+}
+
+.title-box .active{
+    display: block;
+    animation: fadeIn ease 2s;
+    -webkit-animation: fadeIn ease 2s;
+    -moz-animation: fadeIn ease 2s;
+    -o-animation: fadeIn ease 2s;
+    -ms-animation: fadeIn ease 2s;
+}
+
+.title-button{
+    float: right;
+    margin-top: 50px;
+    background-color: rgba(255, 255, 255, 0.0);
+    width: 200px;
+    height: 50px;
+    border: 3px solid #FF8E41;
+
+    font-style: normal;
+    font-weight: normal;
+    font-size: 25px;
+    line-height: 35px;
+    letter-spacing: 0.03em;
+
+    color: #FFFFFF;
+}
+
+.whatis{
+    margin-right: 20px;
+}
+
+.whatis:hover{
+    background-color: #ffffff20
+}
+
+.tryit{
+    background-color:#FF8E41;
+}
+
+.tryit:hover{
+    background-color: rgb(250, 121, 35);
+    border: 3px solid rgb(250, 121, 35);
+}
+
+
+
+@media screen and (max-width: 1400px) {
+    .bg_image{
+        background-position-x: -10vw;
+    }
+    .title-box h1{
+        font-size: 50px;
+    }
+}
+
+
+@media screen and (max-width: 1100px) {
+    .bg_image{
+        background: linear-gradient( rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5) ), url('../img/first_section_bg.png');
+        background-position-x: -20vw;
+    }
+}
+
+@media screen and (max-width: 767px) {
+    .title-box h1{
+        font-size: 45px;
+        text-align: center;
+    }
+    
+    .whatis{
+        float: none;
+        margin-left: calc(50% - 100px);
+    }
+
+    .tryit{
+        display: none;
+    }
+
+    .bg_image{
+        background-position-x: -20vw;
+    }
+
+    .logo{
+        margin-left: -50px;
+    }
+
+    .login{
+        font-size: 24px;
+        float: right;
+        margin:0;
+        padding-right: 20px;
+    }
+  }
+
+
+  @media screen and (max-width: 600px) {
+    .bg_image{
+        background-position-x: -50vw;
+    }
+
+    .title-box{
+        margin-top: 100px;
+    }
+  }
+
+
+  @media screen and (max-width: 500px) {
+      .logo{
+          position: absolute;
+          margin:  0;
+          padding: 0;
+          font-size: 20px;
+      }
+
+      .login{
+          padding-top: 0px;
+          padding-right: 10px;
+      }
+
+      .title-box {
+          margin-top: 150px;
+      }
+
+      .title-box h1{
+          font-size: 30px;
+          font-weight: 300;
+      }
+
+      .changeable{
+          font-weight: bold;
+      }
+
+      .bg_image{
+          background: linear-gradient( rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5) ), url('../img/mobile_bg.png');
+
+          background-position: center;
+      }
+  }
+
+    @keyframes fadeIn {
+    0% {opacity:0;}
+    100% {opacity:1;}
+    }
+    
+    @-moz-keyframes fadeIn {
+    0% {opacity:0;}
+    100% {opacity:1;}
+    }
+    
+    @-webkit-keyframes fadeIn {
+    0% {opacity:0;}
+    100% {opacity:1;}
+    }
+    
+    @-o-keyframes fadeIn {
+    0% {opacity:0;}
+    100% {opacity:1;}
+    }
+    
+    @-ms-keyframes fadeIn {
+    0% {opacity:0;}
+    100% {opacity:1;}
+    }
