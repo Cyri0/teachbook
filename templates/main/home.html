@@ -18,7 +18,10 @@ home
     <div class="container-fluid">
       <div class="row">
         <div class="col full-width">
-          <div class="logo">greenboard</div>
+
+          <a href="{% url 'home-view' %}">
+            <div class="logo">greenboard</div>
+          </a>
 
           <a href="#">
             <div class="login">Bejelentkezés</div>
@@ -35,8 +38,8 @@ home
               <h1 class="changeable">modern</h1>
               <h1>órára készülni!</h1>
 
-              <button class="title-button tryit">Kipróbálom!</button>
-              <button class="title-button whatis">Mi ez?</button>
+              <a href="{% url 'registration-view' %}" class="title-button tryit">Kipróbálom!</a>
+              <a href="#tryit" class="title-button whatis">Mi ez?</a>
         </div>
         <div class="col col-md-1"></div>
       </div>
@@ -49,6 +52,7 @@ home
 
 
 <section class="white_bg">
+  <a name="tryit" style="color: rgba(0, 0, 0, 0);">.</a> 
   <div class="more_text_holder">
 
     <div class="picture"></div>
@@ -56,8 +60,7 @@ home
     <h1>Közösségi oldal, tanároknak</h1>
     <p>Ossz meg dolgozatokat, prezentációkat és videókat, vagy böngéssz a többiek által megosztott anyagok közt és
       színesítsd az óráidat!</p>
-
-    <div class="title-button tryit2">Kipróbálom!</div>
+    <a href="{% url 'registration-view' %}" class="title-button tryit2">Kipróbálom!</a>
   </div>
 
 </section>

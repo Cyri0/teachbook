@@ -1,0 +1,106 @@
+body{
+    color: #244C41;
+    font-family: 'Roboto', sans-serif;
+    background-color: #F0F0F0;
+}
+
+
+nav{
+    height: 50px;
+}
+
+.login{
+    float: right;
+    padding-right: 100px;
+    font-weight: 200;
+    font-size: 30px;
+    line-height: 59px;
+    letter-spacing: -0.05em;
+    color: #244C41;
+    font-weight: 300;
+}
+
+.logo{
+    color: #244C41 !important;
+    padding-left: 73px;
+    
+    font-weight: 200;
+    font-size: 30px;
+    line-height: 59px;
+    
+    letter-spacing: -0.05em;
+    
+    float: left;
+    font-weight: 100;
+}
+
+@media screen and (max-width: 800px) {
+    .logo{
+        font-size: 25px;
+        padding-left: 20px;
+    }
+
+    .login{
+        font-size: 25px;
+        padding-right: 20px;
+    }
+
+}
+
+.container{
+    width: 50vw;
+    max-width: 500px;
+    min-width: 300px;
+    margin-top: 150px;
+}
+
+input{
+    margin-top: 20px;
+    width: 100%;
+    border: 2px solid rgba(36, 76, 65, 0.8);
+    border-radius: 5px;
+    height: 40px;
+    padding-left: 10px;
+    padding-right: 10px;
+    margin-top: 0px;
+}
+
+.form-text{
+    margin-bottom: 0px;
+    font-size: 14px;
+    
+    margin-top: 30px;
+}
+
+.aszf-text{
+    margin-top: 30px;
+}
+
+.aszf-text b {
+    color: #FF8F42;
+}
+
+.aszf-text a {
+    color: #244C41;
+    text-decoration: underline;
+}
+
+.reg_button{
+    transition-duration: 400ms;
+    font-size: 24px;
+    color: #FF8F42;
+    font-weight: bold;
+    text-align: center;
+    line-height: 50px;
+    height: 55px;
+    width: 200px;
+    border: 3px solid #244c41;
+    float: right;
+    margin-top: 40px;
+}
+
+.reg_button:hover{
+    transition-duration: 400ms;
+    background-color: #244c41;
+    color: white;
+}
