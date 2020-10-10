@@ -1,15 +1,15 @@
 {% extends 'base.html' %}
+{% load static %}
 
 {% block title %}
-home
 {% endblock title %}
 
 {% block head-content %}
-<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
-  integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-
 <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400&display=swap" rel="stylesheet">
+<link rel="stylesheet" type="text/css" href={% static 'css/landing.css' %}>
+<link rel="stylesheet" type="text/css" href={% static 'css/animation.css' %}>
 {% endblock head-content %}
+
 
 {% block content %}
 <section>
@@ -32,7 +32,7 @@ home
       <div class="row">
         <div class="col"></div>
         <div class="title-box col-8 col-lg-6 col-xl-5">
-          <h1>Sosem volt még ilyen<h1>
+          <h1>Sosem volt még ilyen</h1>
               <h1 class="changeable active">egyszerű</h1>
               <h1 class="changeable">gyors</h1>
               <h1 class="changeable">modern</h1>
@@ -43,16 +43,13 @@ home
         </div>
         <div class="col col-md-1"></div>
       </div>
-
     </div>
-
-
   </div>
 </section>
 
 
 <section class="white_bg">
-  <a name="tryit" style="color: rgba(0, 0, 0, 0);">.</a> 
+  <a name="tryit" style="color: rgba(0, 0, 0, 0);">.</a>
   <div class="more_text_holder">
 
     <div class="picture"></div>
@@ -60,7 +57,9 @@ home
     <h1>Közösségi oldal, tanároknak</h1>
     <p>Ossz meg dolgozatokat, prezentációkat és videókat, vagy böngéssz a többiek által megosztott anyagok közt és
       színesítsd az óráidat!</p>
-    <a href="{% url 'registration-view' %}" class="title-button tryit2">Kipróbálom!</a>
+      <div class="tryit2_holder">
+        <a href="{% url 'registration-view' %}" class="title-button tryit2">Kipróbálom!</a>
+      </div>
   </div>
 
 </section>

@@ -68,7 +68,6 @@ input{
 .form-text{
     margin-bottom: 0px;
     font-size: 14px;
-    
     margin-top: 30px;
 }
 
@@ -103,4 +102,12 @@ input{
     transition-duration: 400ms;
     background-color: #244c41;
     color: white;
+}
+
+.input_error{
+    font-size: 14px;
+    color: rgb(190, 0, 0);
+    width: 80%;
+    float: right;
+    text-align: right;
 }
