@@ -1,0 +1,28 @@
+body{
+    background-color: #F0F0F0;
+}
+
+.main_container{
+    margin-top: 200px;
+}
+
+.post{
+    max-width: 100%;
+    width: 800px;
+    margin: auto;
+    border-radius: 10px;
+    overflow: hidden;
+    -webkit-box-shadow: 0px 0px 5px 0px rgba(0,0,0,0.75);
+    -moz-box-shadow: 0px 0px 5px 0px rgba(0,0,0,0.75);
+    box-shadow: 0px 0px 5px 0px rgba(0,0,0,0.75);
+}
+
+.post-header, .post-footer{
+    height: 80px;
+    background-color: var(--dark-green);
+}
+
+.post-content{
+    width: 100%;
+    padding: 20px;
+}

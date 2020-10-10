@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}
+- regisztráció
+{% endblock title%}
+
+{% block head-content %}
+<link rel="stylesheet" type="text/css" href={% static 'css/main.css' %}>
+{% endblock head-content %}
+
+{% block content %}
+
+{% include 'main/navbar.html' %}
+
+<div class="container main_container">
+    <div class="post">
+        <div class="post-header"></div>
+        <div class="post-content">
+            lorem ipsum
+        </div>
+        <div class="post-footer"></div>
+    </div>
+</div>
+
+{% endblock content %}
+
+{% block scripts %}
+{% endblock scripts %}

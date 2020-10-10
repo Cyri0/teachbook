@@ -27,11 +27,24 @@
     <title>teachbook{% block title %}{% endblock title %}</title>
 
     {% block head-content %}{% endblock head-content %}
+
+    <style>
+     :root{
+        --dark-green:#184336;
+        --white:#F0F0F0;
+        --orange: #FF8F42;
+        --softorange: rgb(250, 121, 35);
+        --transparent: rgba(255, 255, 255, 0.0);
+    }
+    
+    body{
+        padding: 0px;
+        margin: 0px;
+    }
+    </style>
 </head>
 
 <body>
-
-    {% include 'main/navbar.html' %}
 
     {% block content %}
     {% endblock content %}

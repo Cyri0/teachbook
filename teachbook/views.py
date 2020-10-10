@@ -13,7 +13,12 @@ def successful_registration_view(request):
         'email' : request.POST['email'],
         'password' : request.POST['password']
     }
+    
 
+    # IDE JÖN AZ AMIKOR BEÍRJUK AZ ADATBÁZISBA AZ ÚJ USER ADATAIT
     print (registrationData)
 
-    return render (request, 'registration/success.html', registrationData)
+    return render (request, 'main/main.html', registrationData)
+
+def login(request):
+    return render (request, '')
