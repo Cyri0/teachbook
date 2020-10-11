@@ -15,7 +15,7 @@
   <a href="{% url 'home-view' %}">
     <div class="logo">greenboard</div>
   </a>
-  <a href="#">
+  <a href="{% url 'login-view' %}">
     <div class="login">Bejelentkezés</div>
   </a>
 </nav>
@@ -57,9 +57,17 @@
 
 </div>
 
+{{ isUsernameUsed|json_script:"isUsernameUsed" }}
+{{ lastUsername|json_script:"lastUsername" }}
+{{ lastEmail|json_script:"lastEmail" }}
+
 {% endblock content %}
 
 {% block scripts %}<script>
+
+var isUsernameUsed = JSON.parse(document.getElementById('isUsernameUsed').textContent)
+var lastUsername = JSON.parse(document.getElementById('lastUsername').textContent)
+var lastEmail = JSON.parse(document.getElementById('lastEmail').textContent)
 
 var app = new Vue({
     delimiters: ["[[", "]]"],
@@ -73,6 +81,13 @@ var app = new Vue({
         name_error: null,
         email_error: null,
         pwd_error: null
+    },
+    mounted() {
+        this.email = lastEmail;
+        this.name = lastUsername;
+        if(isUsernameUsed)
+            this.name_error = 'Foglalt név!';
+            isUsernameUsed = false;
     },
     methods: {
         registration: function(){

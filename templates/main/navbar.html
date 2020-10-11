@@ -116,7 +116,13 @@
         background-color: white;
     }
 
+    .mydropdown a{
+        color: black;
+    }
 
+    .mydropdown a:hover{
+        text-decoration: none;
+    }
 
     .dropdown-btn:hover{
         font-weight: bold;
@@ -130,17 +136,18 @@
 
 <nav>
     <div class="container" id="my_navbar">
-        <div class="logo" id="logo">greenboard</div>
+        
+        <a href="{% url 'home' %}"><div class="logo" id="logo">greenboard</div></a>
         <div class="user" v-on:click="greet">
             <div class="profile_pics"></div>
-            <div class="user_name">{{ name }}</div>
+            <div class="user_name">{{ request.user.username }}</div>
         </div>
         <div class="mydropdown" v-bind:class="{ makevisible: isVisible }">
-            <div class="dropdown-btn">Profilom</div>
+            <a href="{% url 'profileView' %}"><div class="dropdown-btn">Profilom</div></a>
             <hr>
-            <div class="dropdown-btn">Beállítások</div>
+            <a href="{% url 'settingsView' %}"><div class="dropdown-btn">Beállítások</div></a>
             <hr>
-            <div class="dropdown-btn">Kijelentkezés</div>
+            <div class="dropdown-btn" v:on:click="logout">Kijelentkezés</div>
         </div>
     </div>
 </nav>
@@ -155,6 +162,15 @@
     methods: {
         greet: function(){
             this.isVisible = !this.isVisible
+        },
+        openProfile: function(){
+            console.log("profile")
+        },
+        openSettings: function(){
+            console.log("settings")
+        },
+        logout: function(){
+            console.log("logging out...")
         }
     },
 });

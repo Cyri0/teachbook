@@ -24,7 +24,12 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('', views.home_view, name='home-view'),
     path('registration', views.registration_view, name='registration-view'),
-    path('logged_in', views.successful_registration_view, name='successful_registration_view')
+    path('logged_in', views.successful_registration_view, name='successful_registration_view'),
+    path('login', views.login_view, name='login-view'),
+    path('regularLogin', views.regularLogin, name='regularLogin'),
+    path ('profile', views.profile_view, name='profileView'),
+    path ('settings', views.settings_view, name='settingsView'),
+    path ('', views.home_view, name='home')
 ]
 
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

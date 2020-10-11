@@ -1,0 +1,48 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}
+- Közösségi oldal, tanároknak!
+{% endblock title%}
+
+{% block head-content %}
+<style>
+    .profile-container{
+        margin-top: 100px;
+    }
+
+    .profile-table{
+        max-width: 800px;
+        margin: auto;
+    }
+
+</style>
+{% endblock head-content %}
+
+{% block content %}
+
+{% include 'main/navbar.html' %}
+
+<div class="container profile-container">
+    <h1>Profilom</h1>
+    <table class="table profile-table">
+        <tr>
+            <td>Felhasználónév:</td>
+            <td>{{ request.user.username }}</td>
+        </tr>
+        <tr>
+            <td>Email cím:</td>
+            <td>{{ request.user.email }}</td>
+        </tr>
+        <tr>
+            <td></td>
+            <td></td>
+        </tr>
+
+    </table>
+</div>
+
+{% endblock content %}
+
+{% block scripts %}
+{% endblock scripts %}
