@@ -12,8 +12,36 @@
     }
 
     .profile-table{
-        max-width: 800px;
+        max-width: 500px;
         margin: auto;
+    }
+
+    .save{
+        height: 50px;
+        padding-right: 10px;
+        padding-left: 10px;
+        border: none;
+        float: right;
+        color:var(--dark-green);
+        font-weight: bold;
+        border: 2px solid var(--dark-green);
+        transition: 0.3s;
+    }
+
+    .save:hover{
+        background-color: var(--dark-green);
+        color: white;
+    }
+
+    .table input {
+        border: none;
+        padding-left: 5px;
+        padding-right: 5px;
+    }
+
+    .table input:focus {
+        border: 1px solid gray;
+        border-radius: 5px;
     }
 
 </style>
@@ -23,26 +51,79 @@
 
 {% include 'main/navbar.html' %}
 
-<div class="container profile-container">
+<div class="container profile-container" id="profile">
     <h1>Profilom</h1>
-    <table class="table profile-table">
-        <tr>
-            <td>Felhasználónév:</td>
-            <td>{{ request.user.username }}</td>
-        </tr>
-        <tr>
-            <td>Email cím:</td>
-            <td>{{ request.user.email }}</td>
-        </tr>
-        <tr>
-            <td></td>
-            <td></td>
-        </tr>
 
-    </table>
+    <div class="row">
+        <div class="col-md-6">
+            
+        </div>
+        <div class="col-md-6">
+            <form action="" method="post">
+                <table class="table profile-table">
+                    <tr>
+                        <td>Felhasználónév:</td>
+                        <td>
+                            <input type="text" id="username" name="username" placeholder="{{ request.user.username }}"></td>
+                    </tr>
+                    <tr>
+                        <td>Email cím:</td>
+                        <td><input type="email" id="email" name="email" placeholder="{{ request.user.email }}"></td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                </table>
+            </form>
+            <button v-on:click="saveChanges" class="save">Változások mentése</button>
+        </div>
+    </div>
+
+    
 </div>
 
 {% endblock content %}
 
 {% block scripts %}
+<script>
+let profile = new Vue({
+    delimiters: ["[[", "]]"],
+    el: '#profile',
+    data: {
+        
+    },
+    methods: {
+        saveChanges: function(){
+            console.log("Mentés");
+            let username = document.getElementById("username").value;
+            let email = document.getElementById("email").value;
+
+            if(username.length != 0 && email.length != 0){
+                console.log("Username and Email changed!\nNew username: "+ username);
+                if(this.emailIsValid(email)){
+                    console.log("New email: " + email);
+                }else{
+                    console.log("Invalid email!");
+                }
+            }
+            else{
+                if(username.length != 0){
+                    console.log("Username changed to: " + username);
+                }
+                if(email.length != 0){
+                    if(this.emailIsValid(email)){
+                        console.log("Email changed to: " + email);
+                    }else{
+
+                    }
+                }
+            }
+        },
+        emailIsValid: function(email){
+            console.log("Email változtatás (tesztelendő email: "+email+")");
+        }
+    }
+});
+</script>
 {% endblock scripts %}

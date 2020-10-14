@@ -1,138 +1,7 @@
 
+{% load static %}
 
-<style>
-
-    nav{
-        position: absolute;
-        left:0;
-        top:0;
-        width: 100%;
-        height: 80px;
-        background-color: white;
-        -webkit-box-shadow: 0px 0px 5px 0px rgba(0,0,0,0.75);
-        -moz-box-shadow: 0px 0px 5px 0px rgba(0,0,0,0.75);
-        box-shadow: 0px 0px 5px 0px rgba(0,0,0,0.75);
-    }
-
-    .logo{
-        color: var(--dark-green);
-        font-size: 20px;
-        font-weight: bold;
-        line-height: 80px;
-        width: 100px;
-        float: left;
-    }
-
-    .user_name{
-        width: 150px;
-        float: right;
-        line-height: 80px;
-        text-align: right;
-        margin-right: 10px;
-        font-size: 20px;
-        font-weight: bold;
-    }
-
-    .profile_pics{
-        width: 50px;
-        height: 50px;
-        margin-top: 15px;
-        -webkit-box-shadow: 0px 0px 5px 0px rgba(0,0,0,0.75);
-        -moz-box-shadow: 0px 0px 5px 0px rgba(0,0,0,0.75);
-        box-shadow: 0px 0px 5px 0px rgba(0,0,0,0.75);
-        float: right;
-
-        border-radius: 50%;
-    }
-
-    .user:hover{
-        cursor: pointer;
-    }
-
-    .profile_pics:hover{
-        -webkit-box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.75);
-        -moz-box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.75);
-        box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.75);
-    }
-
-
-    .mydropdown{
-        position: relative;
-        float: right;
-        right: -210px;
-        top: 80px;
-        width: 250px;
-        height: 0px;
-        overflow: hidden;
-        border-radius: 0px 0px 5px 5px;
-        -webkit-box-shadow: 0px 0px 5px 0px rgba(0,0,0,0.75);
-        -moz-box-shadow: 0px 0px 5px 0px rgba(0,0,0,0.75);
-        box-shadow: 0px 0px 5px 0px rgba(0,0,0,0.75);
-        z-index: 999;
-        transition: 0.2s;
-    }
-
-    @media screen and (max-width: 768px) {
-        .mydropdown{
-            top: 0px;
-            right: 0px;
-        }
-    }
-
-    @media screen and (max-width: 400px) {
-        .mydropdown{
-            top: 0px;
-            right: 0px;
-            width: 100%;
-        }
-
-        .user_name{
-            display: none;
-        }
-    }
-
-    .makevisible{
-        height: 200px;
-        transition: 0.2s;
-    }
-
-
-    .mydropdown hr{
-        border: none;
-        height: 1px;
-        color: #333;
-        background-color: #333;
-        width: 80%;
-        margin: 0px;
-        margin: auto;
-    } 
-
-    .dropdown-btn{
-        width: 100%;
-        text-align: center;
-        line-height: calc(200px / 3);
-        height: calc(100% / 3);
-        font-size: 18px;
-        background-color: white;
-    }
-
-    .mydropdown a{
-        color: black;
-    }
-
-    .mydropdown a:hover{
-        text-decoration: none;
-    }
-
-    .dropdown-btn:hover{
-        font-weight: bold;
-        cursor: pointer;
-    }
-
-    .my_navbar{
-        position: absolute;
-    }
-</style>
+<link rel="stylesheet" type="text/css" href={% static 'css/navbar.css' %}>
 
 <nav>
     <div class="container" id="my_navbar">
@@ -147,7 +16,7 @@
             <hr>
             <a href="{% url 'settingsView' %}"><div class="dropdown-btn">Beállítások</div></a>
             <hr>
-            <div class="dropdown-btn" v:on:click="logout">Kijelentkezés</div>
+            <a href="{% url 'logoutView' %}"><div class="dropdown-btn">Kijelentkezés</div></a>
         </div>
     </div>
 </nav>
@@ -162,15 +31,6 @@
     methods: {
         greet: function(){
             this.isVisible = !this.isVisible
-        },
-        openProfile: function(){
-            console.log("profile")
-        },
-        openSettings: function(){
-            console.log("settings")
-        },
-        logout: function(){
-            console.log("logging out...")
         }
     },
 });

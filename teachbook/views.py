@@ -1,8 +1,7 @@
 from django.http import HttpResponse
 from django.shortcuts import render
 from django.contrib.auth.models import User
-from django.contrib.auth import logout
-from django.contrib.auth import authenticate, login
+from django.contrib.auth import authenticate, login, logout
 
 def home_view(request):
     return render(request, 'main/landing.html')
@@ -24,11 +23,8 @@ def regularLogin(request):
             login(request, user)
             print("Sikeres login!")
             print("Bejelentkezett user neve:" + request.user.username)
-            
-            data = {
-            'name':request.user.username
-            }
-            return render (request, 'main/main.html', data)
+
+            return render (request, 'main/main.html')
 
         except:
             print("Sikertelen login...")
@@ -55,8 +51,12 @@ def loginAfterRegistration(registrationData,request):
         print("Sikertelen login...")
         return False
 
-def logout(request):
+def logout_view(request):
+    print("Kijelentkezés...")
     logout(request)
+    
+    print("Kijelentkezve!")
+    return render(request, 'main/landing.html')
 
 def successful_registration_view(request):
     registrationData = {
@@ -80,8 +80,10 @@ def successful_registration_view(request):
 
 def registration_try(registrationData, request):
     print("Regisztráció próba kezdődik...")
-    user = User.objects.create_user(username=registrationData["name"], email=registrationData["email"], password=registrationData["password"])
-
+    try:
+        user = User.objects.create_user(username=registrationData["name"], email=registrationData["email"], password=registrationData["password"])
+    except :
+        return False
     print("Adat beírva az adatbázisba.")
 
     return loginAfterRegistration(registrationData, request)
