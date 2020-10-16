@@ -1,38 +1,55 @@
-
 {% load static %}
-
 <link rel="stylesheet" type="text/css" href={% static 'css/navbar.css' %}>
 
 <nav>
-    <div class="container" id="my_navbar">
-        
-        <a href="{% url 'home' %}"><div class="logo" id="logo">greenboard</div></a>
-        <div class="user" v-on:click="greet">
-            <div class="profile_pics"></div>
-            <div class="user_name">{{ request.user.username }}</div>
-        </div>
-        <div class="mydropdown" v-bind:class="{ makevisible: isVisible }">
-            <a href="{% url 'profileView' %}"><div class="dropdown-btn">Profilom</div></a>
-            <hr>
-            <a href="{% url 'settingsView' %}"><div class="dropdown-btn">Beállítások</div></a>
-            <hr>
-            <a href="{% url 'logoutView' %}"><div class="dropdown-btn">Kijelentkezés</div></a>
-        </div>
-    </div>
+  <div class="container wrapper" id="my_navbar">
+    <ul>
+        <li class="logo">
+          <a href="{% url 'home' %}">
+          <b>logo</b>
+          </a>
+        </li>
+        <li class="name_holder" v-on:click="useDropdown">
+
+          <div class="profile_pics"></div>
+          <div class="name">
+            {{ request.user.username }}
+          </div>
+          
+          <div class="my_dropdown" v-bind:class="{ makevisible: isVisible }">
+            <ul>
+              <li>
+                <a href="{% url 'profileView' %}">Profilom</a>
+              </li>
+              <li>
+                <a href="{% url 'settingsView' %}">Beállítások</a>
+              </li>
+              <li>
+                <a href="{% url 'logoutView' %}">Kijelentkezés</a>
+              </li>
+            </ul>
+          </div>
+        </li>
+      </ul>
+
+
+
+
+
+  </div>
 </nav>
 
 <script>
-    var menu = new Vue({
+  var menu = new Vue({
     delimiters: ["[[", "]]"],
-    el: '#my_navbar',
+    el: "#my_navbar",
     data: {
-        isVisible: false
+      isVisible: false,
     },
     methods: {
-        greet: function(){
-            this.isVisible = !this.isVisible
-        }
+      useDropdown: function () {
+        this.isVisible = !this.isVisible;
+      },
     },
-});
-
+  });
 </script>

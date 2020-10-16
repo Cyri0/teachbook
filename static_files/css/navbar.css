@@ -1,130 +1,113 @@
+*{
+    margin: 0;
+    padding: 0;
+}
 
-    nav{
-        position: absolute;
-        left:0;
-        top:0;
-        width: 100%;
-        height: 80px;
-        background-color: white;
-        -webkit-box-shadow: 0px 0px 5px 0px rgba(0,0,0,0.75);
-        -moz-box-shadow: 0px 0px 5px 0px rgba(0,0,0,0.75);
-        box-shadow: 0px 0px 5px 0px rgba(0,0,0,0.75);
-    }
-
-    .logo{
-        color: var(--dark-green);
-        font-size: 20px;
-        font-weight: bold;
-        line-height: 80px;
-        width: 100px;
-        float: left;
-    }
-
-    .user_name{
-        width: 150px;
-        float: right;
-        line-height: 80px;
-        text-align: right;
-        margin-right: 10px;
-        font-size: 20px;
-        font-weight: bold;
-    }
-
-    .profile_pics{
-        width: 50px;
-        height: 50px;
-        margin-top: 15px;
-        -webkit-box-shadow: 0px 0px 5px 0px rgba(0,0,0,0.75);
-        -moz-box-shadow: 0px 0px 5px 0px rgba(0,0,0,0.75);
-        box-shadow: 0px 0px 5px 0px rgba(0,0,0,0.75);
-        float: right;
-
-        border-radius: 50%;
-    }
-
-    .user:hover{
-        cursor: pointer;
-    }
-
-    .profile_pics:hover{
-        -webkit-box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.75);
-        -moz-box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.75);
-        box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.75);
-    }
+nav {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 80px;
+  background-color: white;
+  -webkit-box-shadow: 0px 0px 5px 0px rgba(0, 0, 0, 0.75);
+  -moz-box-shadow: 0px 0px 5px 0px rgba(0, 0, 0, 0.75);
+  box-shadow: 0px 0px 5px 0px rgba(0, 0, 0, 0.75);
+}
 
 
-    .mydropdown{
-        position: relative;
-        float: right;
-        right: -210px;
-        top: 80px;
-        width: 250px;
-        height: 0px;
-        overflow: hidden;
-        border-radius: 0px 0px 5px 5px;
-        -webkit-box-shadow: 0px 0px 5px 0px rgba(0,0,0,0.75);
-        -moz-box-shadow: 0px 0px 5px 0px rgba(0,0,0,0.75);
-        box-shadow: 0px 0px 5px 0px rgba(0,0,0,0.75);
-        z-index: 999;
-        transition: 0.2s;
-    }
+/* .mydropdown {
+  display: none;
+} */
 
-    @media screen and (max-width: 768px) {
-        .mydropdown{
-            top: 0px;
-            right: 0px;
-        }
-    }
+/* 
+.makevisible {
+  display: block;
+  position: absolute;
+  background-color: white;
+} */
 
-    @media screen and (max-width: 400px) {
-        .mydropdown{
-            top: 0px;
-            right: 0px;
-            width: 100%;
-        }
 
-        .user_name{
-            display: none;
-        }
-    }
+.wrapper{
+    width: 100%;
+    margin: 0 auto;
+  }
+  
+.wrapper ul {
+    list-style: none;
+    list-style-type: none;
+}
 
-    .makevisible{
-        height: 200px;
-        transition: 0.2s;
-    }
+.wrapper ul li {
+  margin-top: -16px;
+  background: white;
+  line-height: 80px;
+  text-align: center;
+  float: left;
+  color: var(--dark-green);
+  font-size: 14px;
+  position: relative;
+}
 
-    .mydropdown hr{
-        border: none;
-        height: 1px;
-        color: #333;
-        background-color: #333;
-        width: 80%;
-        margin: 0px;
-        margin: auto;
-    } 
+.my_dropdown{
+  transition: height 0.5s;
+  height: 0px;
+  overflow: hidden;
+}
 
-    .dropdown-btn{
-        width: 100%;
-        text-align: center;
-        line-height: calc(200px / 3);
-        height: calc(100% / 3);
-        font-size: 18px;
-        background-color: white;
-    }
+.my_dropdown a {
+  color: var(--dark-green);
+  width: 100%;
+  height: 100%;
+  padding-left: 30px;
+  padding-right: 30px;
+  padding-top: 15px;
+  padding-bottom: 15px;
+  z-index: 999;
+}
 
-    .mydropdown a{
-        color: black;
-    }
+.makevisible{
+  height: 200px;
+  -webkit-box-shadow: 0px 5px 5px 0px rgba(0, 0, 0, 0.5);
+  -moz-box-shadow: 0px 5px 5px 0px rgba(0, 0, 0, 0.5);
+  box-shadow: 0px 5px 5px 0px rgba(0, 0, 0, 0.5);
+}
 
-    .mydropdown a:hover{
-        text-decoration: none;
-    }
+.logo{
+  width: calc(100% - 200px);
+}
 
-    .dropdown-btn:hover{
-        font-weight: bold;
-        cursor: pointer;
-    }
+.logo b {
+  float: left;
+  margin-left: 20px;
+  color: var(--dark-green);
+}
 
-    .my_navbar{
-        position: absolute;
-    }
+.name_holder{
+  width: 200px;
+}
+
+.name{
+  text-align: right;
+  font-weight: bold;
+}
+
+.name_holder ul li{
+  width: 100%;
+}
+
+.profile_pics{
+  width: 60px;
+  height: 60px;
+  margin: 10px;
+  margin-right: 0px;
+  float: right;
+  border: 1px solid white;
+  border-radius: 50%;
+  background-color: gray;
+  z-index: 999;
+}
+
+.profile_pics:hover{
+  cursor: pointer;
+}

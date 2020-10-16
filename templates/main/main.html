@@ -7,13 +7,184 @@
 
 {% block head-content %}
 <link rel="stylesheet" type="text/css" href={% static 'css/main.css' %}>
+
+<style>
+    body {
+        background-color: #F0F0F0;
+    }
+
+    .main_container {
+        margin-top: 120px;
+    }
+
+    .post {
+        max-width: 100%;
+        width: 800px;
+        margin: auto;
+        margin-bottom: 100px;
+        border-radius: 10px;
+        overflow: hidden;
+        -webkit-box-shadow: 0px 0px 5px 0px rgba(0, 0, 0, 0.75);
+        -moz-box-shadow: 0px 0px 5px 0px rgba(0, 0, 0, 0.75);
+        box-shadow: 0px 0px 5px 0px rgba(0, 0, 0, 0.75);
+    }
+
+    .post-header,
+    .post-footer {
+        min-height: 80px;
+        background-color: var(--dark-green);
+    }
+
+    .post-header .row {
+        background-color: var(--dark-green);
+    }
+
+    .post-content {
+        width: 100%;
+        padding: 20px;
+    }
+
+
+    #addNewPost {
+        width: 100px;
+        height: 100px;
+        border-radius: 50%;
+        padding: 30px;
+        margin: auto;
+        margin-bottom: 30px;
+        text-align: center;
+        transition: 0.5s;
+        font-weight: bold;
+    }
+
+    #addNewPost:hover {
+        color: white;
+        background-color: var(--dark-green);
+        cursor: pointer;
+    }
+
+    #addNewPost:active {
+        background-color: #0d241d;
+    }
+
+    .newPost {
+        height: 0px;
+        overflow: hidden;
+        transition: 1s;
+    }
+
+    .newPostOpen {
+        height: 50vh;
+        transition: 1s;
+    }
+
+    .newPost .post-content {
+        height: calc(50vh - 160px);
+    }
+
+    .newPost .post-header {
+        padding-right: 10px;
+        padding-left: 10px;
+    }
+
+    .post-content textarea {
+        width: 100%;
+        height: 100%;
+        resize: none;
+        background-color: var(--transparent);
+        border: none;
+    }
+
+    #post_title {
+        width: 100%;
+        height: 80px;
+        border: none;
+        background-color: var(--transparent);
+        color: white;
+        font-size: 24px;
+        text-align: center;
+    }
+
+    #subject {
+        height: 50px;
+        margin-top: 15px;
+        margin-bottom: 15px;
+        width: 100%;
+        float: right;
+        color: white;
+        background-color: var(--transparent);
+        border: 2px solid white;
+        border-radius: 10px;
+        text-align: center;
+
+        -webkit-appearance: none;
+        -moz-appearance: none;
+        text-indent: 1px;
+        text-overflow: '';
+    }
+
+    .sendNewPost {
+        width: 60px;
+        height: 60px;
+        color: rgb(129, 129, 129);
+        float: right;
+        margin-top: 10px;
+        margin-right: 20px;
+        transition: 0.5s;
+    }
+
+    .sendNewPost:hover {
+        color: white;
+        cursor: pointer;
+    }
+
+    .sendNewPost:active{
+        transform: scale(1.1);
+    }
+
+</style>
 {% endblock head-content %}
 
 {% block content %}
 
 {% include 'main/navbar.html' %}
 
-<div class="container main_container">
+<div class="container main_container" id="main">
+
+    <div id="addNewPost" v-on:click="handleNewPostPanel"><svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="plus" class="svg-inline--fa fa-plus fa-w-14" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path fill="currentColor" d="M416 208H272V64c0-17.67-14.33-32-32-32h-32c-17.67 0-32 14.33-32 32v144H32c-17.67 0-32 14.33-32 32v32c0 17.67 14.33 32 32 32h144v144c0 17.67 14.33 32 32 32h32c17.67 0 32-14.33 32-32V304h144c17.67 0 32-14.33 32-32v-32c0-17.67-14.33-32-32-32z"></path></svg></div>
+
+    <div class="post newPost" v-bind:class="{ newPostOpen: newPostPanelVisible }">
+        <div class="container post-header" >
+            <div class="row" id="post_header" >
+                <div class="col-md-8">
+                    <input type="text" id="post_title" placeholder="Add meg a címet!" name="post_title">
+                </div>
+                <div class="col-md-4">
+                    <select name="subject" id="subject" @change="changeColor">
+                        <option value="1">informatika</option>
+                        <option value="2">történelem</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+        <div class="post-content">
+            <textarea name="post_content" id="" cols="30" rows="10"></textarea>
+        </div>
+        <div class="post-footer" id="post_footer">
+
+            <div class="sendNewPost">
+                <svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="paper-plane"
+                    class="svg-inline--fa fa-paper-plane fa-w-16" role="img" xmlns="http://www.w3.org/2000/svg"
+                    viewBox="0 0 512 512">
+                    <path fill="currentColor"
+                        d="M476 3.2L12.5 270.6c-18.1 10.4-15.8 35.6 2.2 43.2L121 358.4l287.3-253.2c5.5-4.9 13.3 2.6 8.6 8.3L176 407v80.5c0 23.6 28.5 32.9 42.5 15.8L282 426l124.6 52.2c14.2 6 30.4-2.9 33-18.2l72-432C515 7.8 493.3-6.8 476 3.2z">
+                    </path>
+                </svg>
+            </div>
+        </div>
+
+    </div>
+
     <div class="post">
         <div class="post-header"></div>
         <div class="post-content">
@@ -26,4 +197,67 @@
 {% endblock content %}
 
 {% block scripts %}
+
+<script>
+    
+
+    var app = new Vue({
+        delimiters: ["[[", "]]"],
+        el: '#main',
+        data: {
+            newPostPanelVisible: false,
+            subject: null
+        },
+        mounted(){
+            this.changeColor();
+        },
+        methods: {
+            handleNewPostPanel: function () {
+                this.newPostPanelVisible = !this.newPostPanelVisible;
+                console.log(this.newPostPanelVisible);
+                
+                if(this.newPostPanelVisible){
+                    document.getElementById("addNewPost").innerHTML = '<svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="chevron-circle-up" class="svg-inline--fa fa-chevron-circle-up fa-w-16" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M8 256C8 119 119 8 256 8s248 111 248 248-111 248-248 248S8 393 8 256zm231-113.9L103.5 277.6c-9.4 9.4-9.4 24.6 0 33.9l17 17c9.4 9.4 24.6 9.4 33.9 0L256 226.9l101.6 101.6c9.4 9.4 24.6 9.4 33.9 0l17-17c9.4-9.4 9.4-24.6 0-33.9L273 142.1c-9.4-9.4-24.6-9.4-34 0z"></path></svg>';
+                }
+                else{
+                    document.getElementById("addNewPost").innerHTML = '<svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="plus" class="svg-inline--fa fa-plus fa-w-14" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path fill="currentColor" d="M416 208H272V64c0-17.67-14.33-32-32-32h-32c-17.67 0-32 14.33-32 32v144H32c-17.67 0-32 14.33-32 32v32c0 17.67 14.33 32 32 32h144v144c0 17.67 14.33 32 32 32h32c17.67 0 32-14.33 32-32V304h144c17.67 0 32-14.33 32-32v-32c0-17.67-14.33-32-32-32z"></path></svg>';
+                }
+            },
+            changeColor: function(){
+                let subject = document.getElementById("subject").value;
+                console.log(subject);
+                let postFooter = document.getElementById("post_footer");
+                let postHeader = document.getElementById("post_header");
+
+
+                /*
+                    lila #571845
+                    sárga #ffc300
+                    nemtom #c70039
+                    sötétzöld #184336
+                    narancs #FF8F42
+                    kék #1F456E
+                */
+
+                switch (subject*1) {
+                    case 1:
+                        postFooter.style.backgroundColor = "#1F456E";
+                        postHeader.style.backgroundColor = "#1F456E";
+                        break;
+                    case 2:
+                        postFooter.style.backgroundColor = "#184336";
+                        postHeader.style.backgroundColor = "#184336";
+                    default:
+                        break;
+                }
+            }
+        }
+    });
+
+
+
+
+
+</script>
+
 {% endblock scripts %}
