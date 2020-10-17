@@ -2,9 +2,23 @@ from django.http import HttpResponse
 from django.shortcuts import render
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login, logout
+from blogposts.models import BlogPost
+from blogposts.forms import PostTitleForm
 
 def home_view(request):
-    return render(request, 'main/landing.html')
+    if(len(request.user.username) == 0):
+        return render(request, 'main/landing.html')
+    else:
+        print('\n\n nt:' +str(request.user.id) + '\n\n')
+        posts = BlogPost.objects.order_by('id')
+        
+        forms = {
+            'title_form':PostTitleForm()
+        }
+
+        context = {'posts' : posts, 'forms':forms}
+        
+        return render(request, 'main/main.html', context)
 
 def registration_view(request):
     data = {
@@ -96,6 +110,3 @@ def profile_view(request):
 
 def settings_view(request):
     return render(request, 'main/menu/settings.html')
-
-def home_view(request):
-    return render (request, 'main/main.html')
