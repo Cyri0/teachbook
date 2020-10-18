@@ -32,11 +32,11 @@
     .post-header,
     .post-footer {
         min-height: 80px;
-        background-color: var(--dark-green);
+        background-color: var(gray);
     }
 
     .post-header .row {
-        background-color: var(--dark-green);
+        background-color: var(gray);
     }
 
     .post-content {
@@ -149,6 +149,24 @@
         margin-left: 20px;
     }
 
+    .history .post-footer,
+    .history .post-header,
+    .history .row{
+        background-color: #184336;
+    }
+
+    .it .post-footer,
+    .it .post-header,
+    .it .row{
+        background-color: #1F456E;
+    }
+
+    .hun_lang .post-footer,
+    .hun_lang .post-header,
+    .hun_lang .row{
+        background-color: #c70039;
+    }
+
 </style>
 {% endblock head-content %}
 
@@ -160,55 +178,49 @@
 
     <div id="addNewPost" v-on:click="handleNewPostPanel"><svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="plus" class="svg-inline--fa fa-plus fa-w-14" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path fill="currentColor" d="M416 208H272V64c0-17.67-14.33-32-32-32h-32c-17.67 0-32 14.33-32 32v144H32c-17.67 0-32 14.33-32 32v32c0 17.67 14.33 32 32 32h144v144c0 17.67 14.33 32 32 32h32c17.67 0 32-14.33 32-32V304h144c17.67 0 32-14.33 32-32v-32c0-17.67-14.33-32-32-32z"></path></svg></div>
 
-    <form action="" method="post">
+    <form action="{% url 'addNewPost' %}" method="post">
     {% csrf_token %}
-    <div class="post newPost" v-bind:class="{ newPostOpen: newPostPanelVisible }">
+    <div class="post newPost" id="newPost" v-bind:class="{ newPostOpen: newPostPanelVisible }">
         <div class="container post-header" >
             <div class="row" id="post_header" >
                 <div class="col-md-8">
-                    <!-- <input type="text" id="post_title" placeholder="Add meg a címet!" name="post_title"> -->
-                    {{forms.title_form.title}}
+                    <input type="text"  v-model="new_title" id="post_title" placeholder="Add meg a címet!" name="post_title">
                 </div>
                 <div class="col-md-4">
-                    <select name="subject" id="subject" @change="changeColor">
-                        <option value="1">informatika</option>
-                        <option value="2">történelem</option>
+                    <select name="subject" v-model="new_subject" id="subject" @change="changeColor">
+                        <option value="history">történelem</option>
+                        <option value="it">informatika</option>
+                        <option value="hun_lang">magyar</option>
                     </select>
                 </div>
             </div>
         </div>
         <div class="post-content">
-            <textarea name="post_content" id="" cols="30" rows="10"></textarea>
+            <textarea name="post_content" v-model="new_content" cols="30" rows="10"></textarea>
         </div>
         <div class="post-footer" id="post_footer">
-
             <div class="sendNewPost">
-
-                <a href="{% url 'addNewPost' %}">
-                <input type="submit" value="send">
-                </a>
-                    <svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="paper-plane"
+                    <svg aria-hidden="true" v-on:click="sendPostToDb" focusable="false" data-prefix="fas" data-icon="paper-plane"
                         class="svg-inline--fa fa-paper-plane fa-w-16" role="img" xmlns="http://www.w3.org/2000/svg"
                         viewBox="0 0 512 512">
                         <path fill="currentColor"
                             d="M476 3.2L12.5 270.6c-18.1 10.4-15.8 35.6 2.2 43.2L121 358.4l287.3-253.2c5.5-4.9 13.3 2.6 8.6 8.3L176 407v80.5c0 23.6 28.5 32.9 42.5 15.8L282 426l124.6 52.2c14.2 6 30.4-2.9 33-18.2l72-432C515 7.8 493.3-6.8 476 3.2z">
                         </path>
                     </svg>
-                
             </div>
         </div>
     </div>
     </form>
 
     {% for post in posts %}
-    <div class="post">
+    <div class="post {{ post.post_subject }}">
         <div class="post-header">
             <div class="post_title">{{ post.post_title }}</div>
         </div>
         <div class="post-content">
             {{ post.post_content }}<br>
-            Írta: {{ post.post_author }}<br>
-            Tantárgy: {{ post.post_subject }}<br>
+            <input type="hidden" class="stored_post_author" value="{{ post.post_author }}">
+            <input type="hidden" class="stored_post_subject" value="{{ post.post_subject }}">
         </div>
         <div class="post-footer"></div>
     </div>
@@ -226,9 +238,24 @@
         el: '#main',
         data: {
             newPostPanelVisible: false,
-            subject: null
+            new_subject: null,
+            new_title: null,
+            new_content: null
         },
         mounted(){
+            // this.$nextTick(function () {
+            //     // let targyak = document.getElementsByClassName("stored_post_subject");
+                
+            //     // for(let i = 0; i < targyak.length; i++){
+            //     //     console.log(i + ". tárgy: " + targyak[i].value);
+            //     // }
+
+            //     // let authors = document.getElementsByClassName("stored_post_author");
+
+            //     // for(let i = 0; i < authors.length; i++){
+            //     //     console.log(i + ". user id: " + authors[i].value);
+            //     // }
+            // })
             this.changeColor();
         },
         methods: {
@@ -245,39 +272,47 @@
             },
             changeColor: function(){
                 let subject = document.getElementById("subject").value;
-                console.log(subject);
                 let postFooter = document.getElementById("post_footer");
                 let postHeader = document.getElementById("post_header");
+                
+                let classlist = document.getElementById("newPost").classList;
 
-
-                /*
-                    lila #571845
-                    sárga #ffc300
-                    nemtom #c70039
-                    sötétzöld #184336
-                    narancs #FF8F42
-                    kék #1F456E
-                */
-
-                switch (subject*1) {
-                    case 1:
-                        postFooter.style.backgroundColor = "#1F456E";
-                        postHeader.style.backgroundColor = "#1F456E";
-                        break;
-                    case 2:
-                        postFooter.style.backgroundColor = "#184336";
-                        postHeader.style.backgroundColor = "#184336";
-                    default:
-                        break;
+                let first = true;
+                for(let i = 0; i < classlist.length;i++){
+                    if(classlist[i] !== 'post' &&
+                    classlist[i] !== 'newPost' && 
+                    classlist[i] !== 'newPostOpen'){
+                        classlist.replace(classlist[i], subject);
+                        first = false;
+                    }
                 }
+                if(first){
+                    classlist.add(subject);
+                }
+
+                console.log(classlist);
+            },
+            sendPostToDb: function(){
+                let newContentData = {
+                    "user_id" : document.getElementById("user_id").value,
+                    "content" : this.new_content, 
+                    "title" : this.new_title,
+                    "subject" : this.new_subject
+                }
+
+
+
+                console.log("Feltöltendő adatok:" + 
+                            "\nuser_id: " + newContentData.user_id +
+                            "\ncontent: " + newContentData.content +
+                            "\ntitle: " + newContentData.title + 
+                            "\nsubject: " + newContentData.subject)
+                            axios.defaults.xsrfCookieName = 'csrftoken';
+                            axios.defaults.xsrfHeaderName = "X-CSRFTOKEN";
+                            axios.post("{% url 'testPostRequest' %}", JSON.stringify(newContentData) ).then(response => this.articleId = response.data.id);
             }
         }
     });
-
-
-
-
-
 </script>
 
 {% endblock scripts %}

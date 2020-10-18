@@ -1,9 +1,8 @@
 from django.http import HttpResponse
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login, logout
 from blogposts.models import BlogPost
-from blogposts.forms import PostTitleForm
 
 def home_view(request):
     if(len(request.user.username) == 0):
@@ -12,11 +11,7 @@ def home_view(request):
         print('\n\n nt:' +str(request.user.id) + '\n\n')
         posts = BlogPost.objects.order_by('id')
         
-        forms = {
-            'title_form':PostTitleForm()
-        }
-
-        context = {'posts' : posts, 'forms':forms}
+        context = {'posts' : posts}
         
         return render(request, 'main/main.html', context)
 
@@ -35,10 +30,8 @@ def regularLogin(request):
     if user is not None:
         try:
             login(request, user)
-            print("Sikeres login!")
-            print("Bejelentkezett user neve:" + request.user.username)
-
-            return render (request, 'main/main.html')
+            print("Sikeres login!\nBejelentkezett user neve:" + request.user.username)
+            return redirect('/')
 
         except:
             print("Sikertelen login...")
@@ -50,26 +43,20 @@ def loginAfterRegistration(registrationData,request):
     user = authenticate(request, username=registrationData["name"], password=registrationData["password"])
     if user is not None:
         login(request, user)
-        print("Sikeres login!")
-        print("Bejelentkezett user neve:")
+        print("Sikeres login!\nBejelentkezett user neve:")
         username = None
-        
-        #if request.user.is_authenticated():
         username = request.user.username
         email = request.user.email
         print(username)
         print(email)
-        
+
         return True
     else:
         print("Sikertelen login...")
         return False
 
 def logout_view(request):
-    print("Kijelentkezés...")
     logout(request)
-    
-    print("Kijelentkezve!")
     return render(request, 'main/landing.html')
 
 def successful_registration_view(request):
@@ -78,11 +65,10 @@ def successful_registration_view(request):
         'email' : request.POST['email'],
         'password' : request.POST['password']
     }
-      
-    print (registrationData)
 
     if(registration_try(registrationData, request)):
-        return render (request, 'main/main.html')
+        # return render (request, 'main/main.html')
+        return redirect('/')
     else:
         print("Foglalt user name!")
         data = {
@@ -93,12 +79,10 @@ def successful_registration_view(request):
         return render (request, 'registration/reg.html', data)
 
 def registration_try(registrationData, request):
-    print("Regisztráció próba kezdődik...")
     try:
         user = User.objects.create_user(username=registrationData["name"], email=registrationData["email"], password=registrationData["password"])
     except :
         return False
-    print("Adat beírva az adatbázisba.")
 
     return loginAfterRegistration(registrationData, request)
 
@@ -110,3 +94,9 @@ def profile_view(request):
 
 def settings_view(request):
     return render(request, 'main/menu/settings.html')
+
+def testPostRequest(request):
+    print("Eredmény:")
+    print(request.POST.values)
+
+    return redirect("/")

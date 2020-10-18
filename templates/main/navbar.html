@@ -14,6 +14,7 @@
           <div class="profile_pics"></div>
           <div class="name">
             {{ request.user.username }}
+            <input type="hidden" id="user_id" value="{{ request.user.id }}">
           </div>
           
           <div class="my_dropdown" v-bind:class="{ makevisible: isVisible }">

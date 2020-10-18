@@ -30,8 +30,8 @@ urlpatterns = [
     path ('profile', views.profile_view, name='profileView'),
     path ('settings', views.settings_view, name='settingsView'),
     path ('logout', views.logout_view, name='logoutView'),
-    path ('', include('blogposts.urls'))
-
+    path ('', include('blogposts.urls')),
+    path('testPostRequest', views.testPostRequest, name='testPostRequest')
 ]
 
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
