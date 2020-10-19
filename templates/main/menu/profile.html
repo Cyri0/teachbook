@@ -10,7 +10,7 @@
     .profile-container{
         margin-top: 100px;
         position: relative;
-        z-index: -1;
+        /* z-index: -1; */
     }
 
     .profile-table{
@@ -63,7 +63,7 @@
             
         </div>
         <div class="col-md-6">
-            <form action="" method="post">
+            <form>
                 <table class="table profile-table">
                     <tr>
                         <td>Felhasználónév:</td>
@@ -81,53 +81,13 @@
                 </table>
             </form>
             <button v-on:click="saveChanges" class="save">Változások mentése</button>
-        </div>
-    </div>
 
-    
+        </div>
+    </div>   
 </div>
 
 {% endblock content %}
 
 {% block scripts %}
-<script>
-let profile = new Vue({
-    delimiters: ["[[", "]]"],
-    el: '#profile',
-    data: {
-        
-    },
-    methods: {
-        saveChanges: function(){
-            console.log("Mentés");
-            let username = document.getElementById("username").value;
-            let email = document.getElementById("email").value;
-
-            if(username.length != 0 && email.length != 0){
-                console.log("Username and Email changed!\nNew username: "+ username);
-                if(this.emailIsValid(email)){
-                    console.log("New email: " + email);
-                }else{
-                    console.log("Invalid email!");
-                }
-            }
-            else{
-                if(username.length != 0){
-                    console.log("Username changed to: " + username);
-                }
-                if(email.length != 0){
-                    if(this.emailIsValid(email)){
-                        console.log("Email changed to: " + email);
-                    }else{
-
-                    }
-                }
-            }
-        },
-        emailIsValid: function(email){
-            console.log("Email változtatás (tesztelendő email: "+email+")");
-        }
-    }
-});
-</script>
+<script src="{% static 'js/profile.js' %}"></script>
 {% endblock scripts %}
