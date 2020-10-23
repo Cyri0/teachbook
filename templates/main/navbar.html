@@ -6,12 +6,13 @@
     <ul>
         <li class="logo">
           <a href="{% url 'home-view' %}">
-          <b>logo</b>
+          <b>GreenBoard</b>
           </a>
         </li>
         <li class="name_holder" v-on:click="useDropdown">
 
-          <div class="profile_pics"></div>
+          <div class="profile_pics" id="navbar_profile_pic">
+          </div>
           <div class="name">
             {{ request.user.username }}
             <input type="hidden" id="user_id" value="{{ request.user.id }}">
@@ -42,6 +43,9 @@
     data: {
       isVisible: false,
     },
+    mounted(){
+       document.getElementById("navbar_profile_pic").style.backgroundImage = 'url("'+"/media/{{ request.user.profile.image }}"+'")';
+      },
     methods: {
       useDropdown: function () {
         this.isVisible = !this.isVisible;

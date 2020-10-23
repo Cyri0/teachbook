@@ -15,19 +15,6 @@ nav {
   box-shadow: 0px 0px 5px 0px rgba(0, 0, 0, 0.75);
 }
 
-
-/* .mydropdown {
-  display: none;
-} */
-
-/* 
-.makevisible {
-  display: block;
-  position: absolute;
-  background-color: white;
-} */
-
-
 .wrapper{
     width: 100%;
     margin: 0 auto;
@@ -80,6 +67,9 @@ nav {
 .logo b {
   float: left;
   margin-left: 20px;
+  font-size: 20px;
+  font-weight: normal;
+  font-family: 'Roboto', sans-serif;
   color: var(--dark-green);
 }
 
@@ -104,8 +94,9 @@ nav {
   float: right;
   border: 1px solid white;
   border-radius: 50%;
-  background-color: gray;
   z-index: 999;
+  background-size: cover;
+  background-position: center;
 }
 
 .profile_pics:hover{

@@ -4,6 +4,10 @@ let profile = new Vue({
     data: {
         
     },
+    mounted(){
+        let profile_pics = document.getElementById('profile_pics_big');
+        profile_pics.style.backgroundImage = 'url("'+profilepicsurl+'")';
+    },
     methods: {
         saveChanges: function(){
             console.log("Mentés");

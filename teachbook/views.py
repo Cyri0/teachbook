@@ -36,9 +36,16 @@ def regularLogin(request):
 
         except:
             print("Sikertelen login...")
-            return render (request, 'login/login.html')
+            message = {
+            'error_msg':'Hibás felhasználónév vagy jelszó!'
+            }
+            return render (request, 'login/login.html', message)
     else:
         print("Sikertelen autentikáció...")
+        message = {
+            'error_msg':'Hibás felhasználónév vagy jelszó!'
+        }
+        return render (request, 'login/login.html', message)
 
 def loginAfterRegistration(registrationData,request):
     user = authenticate(request, username=registrationData["name"], password=registrationData["password"])
@@ -91,7 +98,10 @@ def login_view(request):
     return render(request, 'login/login.html')
 
 def profile_view(request):
-    return render(request, 'main/menu/profile.html')
+    data = {
+        "picture": "/media/"+str(request.user.profile.image)
+    }
+    return render(request, 'main/menu/profile.html', data)
 
 def settings_view(request):
     return render(request, 'main/menu/settings.html')
