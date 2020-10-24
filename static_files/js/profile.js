@@ -2,21 +2,22 @@ let profile = new Vue({
     delimiters: ["[[", "]]"],
     el: '#profile',
     data: {
-        actual_subjects: ""
+        actual_subjects: "",
+        actual_subjects_text: []
     },
     mounted(){
         let profile_pics = document.getElementById('profile_pics_big');
         profile_pics.style.backgroundImage = 'url("'+profilepicsurl+'")';
-
-        let subject_holder = document.getElementById('subjects_holder');
         
         this.actual_subjects = user_subjects.split("|");
         console.log(this.actual_subjects);
         console.log(subjects);
-
+    
         for(let i = 0; i < this.actual_subjects.length; i++){
-            subject_holder.innerHTML += "<b>" + this.subjectIdConverter(this.actual_subjects[i])+ "</b>" + "<br>";
+            let content = this.subjectIdConverter(this.actual_subjects[i]);
+            this.actual_subjects_text.push(content);
         }
+        
     },
     methods: {
         subjectIdConverter: function(id){
@@ -32,6 +33,18 @@ let profile = new Vue({
                     return subjects[i][0];
                 }
             }
+        },
+        removeSubject: function(sub){
+            let new_actual = [];
+            for(let i = 0; i < this.actual_subjects.length; i++){
+                if(this.actual_subjects[i].length > 0)
+                    if(this.actual_subjects[i] != this.subjectNameConverter(sub)){
+                    new_actual.push(this.actual_subjects[i]);
+                }
+            }
+            this.actual_subjects = new_actual;
+            console.log(this.actual_subjects);
+            this.refreshSubjects();
         },
         saveChanges: function(){
             console.log("Mentés");
@@ -111,6 +124,7 @@ let profile = new Vue({
             axios.defaults.xsrfCookieName = 'csrftoken';
             axios.defaults.xsrfHeaderName = "X-CSRFTOKEN";
             axios.post(url_remove, removeable ).then(response => this.articleId = response.data.id);
+            
             location.reload();
         }
     }

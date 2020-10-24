@@ -9,8 +9,18 @@
 <link rel="stylesheet" type="text/css" href={% static 'css/main.css' %}>
 
 <style>
+
+    .post-header,
+    .post-footer {
+        display: inline-block;
+        min-height: 80px;
+        width: 100%;
+        background-color: var(gray);
+        margin: 0;
+    }
+
     .post_author{
-        float: left;
+        position: relative;
         width: 50px;
         height: 50px;
         border-radius: 50%;
@@ -26,11 +36,40 @@
     .post_title{
         color: white;
         font-size: 24px;
-        line-height: 80px;
+        /* line-height: 80px; */
+        padding-top: 20px;
+        padding-bottom: 20px;
         margin-left: 15px;
-        width: calc(100% - 90px);
+        width: calc(100% - 100px);
         float: right;
     }
+
+    .likebutton{
+        width: 30px;
+        height: 30px;
+        background-color: var(--transparent);
+        border: none;
+        margin-top: 25px;
+        position: relative;
+        left: calc(100% - 50px);
+        border-radius: 30%;
+        overflow: hidden;
+    }
+
+    .likebutton img{
+        filter: invert(0.9);
+        background-image: url("{% static 'icons/heart.svg' %}");
+        background-position: center;
+        background-size: 0%;
+    }
+
+    .likebutton img:hover{
+        background-image: url("{% static 'icons/heart.svg' %}");
+
+        background-size: 100%;
+
+    }
+
 
 </style>
 
@@ -93,7 +132,11 @@
             <input type="hidden" class="stored_post_author" value="{{ post.post_author }}">
             <input type="hidden" class="stored_post_subject" value="{{ post.post_subject }}">
         </div>
-        <div class="post-footer"></div>
+        <div class="post-footer">
+            <button class="likebutton">
+                <img src="{% static 'icons/heart-regular.svg' %}">
+            </button>
+        </div>
     </div>
     {% endfor %}
 </div>

@@ -19,11 +19,7 @@
         box-shadow: 0px 0px 5px 0px rgba(0, 0, 0, 0.75);
     }
 
-    .post-header,
-    .post-footer {
-        min-height: 80px;
-        background-color: var(gray);
-    }
+
 
     .post-header .row {
         background-color: var(gray);

@@ -11,8 +11,16 @@ def home_view(request):
         return render(request, 'main/landing.html')
     else:
         print('\n\n nt:' +str(request.user.id) + '\n\n')
-        posts = BlogPost.objects.order_by('id')
-        posts = reversed(list(posts))
+
+        posts = []
+
+        for sub_id in request.user.profile.subjects.split("|"):        
+            test = BlogPost.objects.filter(post_subject = sub_id)
+            print(sub_id + " - " + str(list(test)))
+            posts = posts + (list(test))
+
+        print(posts)
+
         users = User.objects.order_by('id')
         users = list(users)
         subjects = SchoolSubject.objects.order_by('id')
@@ -122,6 +130,7 @@ def remove_post(request):
     for x in request.POST.keys():
         key = x
     print(key)
+
     BlogPost.objects.filter(id = key).delete();
     return profile_view(request) 
 
@@ -131,7 +140,10 @@ def refreshSubject(request):
         key = x
     print(key)
 
-
+    profile = request.user.profile
+    profile.subjects = key
+    profile.save()
+    print(profile)
 
     return profile_view(request)
 

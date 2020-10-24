@@ -78,10 +78,21 @@
         float: right;
     }
 
-    #subjects_holder{
+    #subjects_holder button{
         float: left;
+        width: 100px;
+        margin-right: calc(100% - 100px);
         color: gray;
+        border: none;
         margin-left: 5px;
+        background-color: var(--transparent);
+        text-align: left;
+
+    }
+
+    #subjects_holder button:hover{
+        background-color: var(--transparent);
+        text-decoration: line-through;
     }
 
     .my_post_holder{
@@ -95,7 +106,7 @@
         margin: auto;
         border: 2px solid var(--dark-green);
         padding: 10px;
-        display: inline block;
+        display: inline-block;
     }
 
     .my_post button {
@@ -172,7 +183,9 @@
                     <tr>
                         <td>Követett tantárgyak</td>
                         <td>
-                            <div id="subjects_holder"></div>
+                            <div id="subjects_holder" v-for="sub in actual_subjects_text" :key="actual_subjects_text">
+                                <button @click="removeSubject([[ sub ]])">[[ sub ]]</button>
+                            </div>
                             <button class="add_subject" id="add_subject_btn" v-on:click="addNewSubjectVisibility()">+</button>
                         </td>
                     </tr>
@@ -191,7 +204,6 @@
                     </tr>
                 </table>
             <!-- </form> -->
-
 
             <button v-on:click="saveChanges" class="save">Változások mentése</button>
         </div>
@@ -229,4 +241,5 @@
 </script>
 
 <script src="{% static 'js/profile.js' %}"></script>
+
 {% endblock scripts %}

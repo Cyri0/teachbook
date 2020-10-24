@@ -7,7 +7,7 @@ import json
 class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     image = models.ImageField(default='basic_avatar.png')
-    subjects = models.CharField(default='', max_length=2000)
+    subjects = models.CharField(blank=True, max_length=2000)
 
     def set_subjects(self, x):
         self.subjects = json.dumps(x)
