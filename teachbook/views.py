@@ -3,6 +3,7 @@ from django.shortcuts import render, redirect
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login, logout
 from blogposts.models import BlogPost
+from subjects.models import SchoolSubject
 import json 
 
 def home_view(request):
@@ -12,7 +13,11 @@ def home_view(request):
         print('\n\n nt:' +str(request.user.id) + '\n\n')
         posts = BlogPost.objects.order_by('id')
         posts = reversed(list(posts))
-        context = {'posts' : posts}
+        users = User.objects.order_by('id')
+        users = list(users)
+        subjects = SchoolSubject.objects.order_by('id')
+        subjects = list(subjects)
+        context = {'posts' : posts, 'users':users, 'subjects':subjects}
         
         return render(request, 'main/main.html', context)
 
@@ -98,10 +103,37 @@ def login_view(request):
     return render(request, 'login/login.html')
 
 def profile_view(request):
+
+    posts = BlogPost.objects.filter(post_author=request.user.id)
+    posts = reversed(list(posts))
+    subjects = SchoolSubject.objects.order_by('id')
+    subjects = list(subjects)
+
     data = {
-        "picture": "/media/"+str(request.user.profile.image)
+        "picture": request.user.profile.image.url,
+        "posts": posts,
+        "subjects": subjects
     }
     return render(request, 'main/menu/profile.html', data)
+
+
+def remove_post(request):
+    key = None
+    for x in request.POST.keys():
+        key = x
+    print(key)
+    BlogPost.objects.filter(id = key).delete();
+    return profile_view(request) 
+
+def refreshSubject(request):
+    key = None
+    for x in request.POST.keys():
+        key = x
+    print(key)
+
+
+
+    return profile_view(request)
 
 def settings_view(request):
     return render(request, 'main/menu/settings.html')

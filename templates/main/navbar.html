@@ -44,7 +44,7 @@
       isVisible: false,
     },
     mounted(){
-       document.getElementById("navbar_profile_pic").style.backgroundImage = 'url("'+"/media/{{ request.user.profile.image }}"+'")';
+       document.getElementById("navbar_profile_pic").style.backgroundImage = 'url("'+"{{ request.user.profile.image.url }}"+'")';
       },
     methods: {
       useDropdown: function () {

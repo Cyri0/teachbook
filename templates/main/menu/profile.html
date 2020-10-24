@@ -7,30 +7,30 @@
 
 {% block head-content %}
 <style>
-    .profile-container{
+    .profile-container {
         margin-top: 100px;
         position: relative;
         /* z-index: -1; */
     }
 
-    .profile-table{
+    .profile-table {
         max-width: 500px;
         margin: auto;
     }
 
-    .save{
+    .save {
         height: 50px;
         padding-right: 10px;
         padding-left: 10px;
         border: none;
         float: right;
-        color:var(--dark-green);
+        color: var(--dark-green);
         font-weight: bold;
         border: 2px solid var(--dark-green);
         transition: 0.3s;
     }
 
-    .save:hover{
+    .save:hover {
         background-color: var(--dark-green);
         color: white;
     }
@@ -49,7 +49,7 @@
     }
 
 
-    #profile_pics_big{
+    #profile_pics_big {
         width: 150px;
         height: 150px;
         margin: auto;
@@ -60,6 +60,88 @@
         background-size: cover;
         background-position: center;
     }
+
+    #profile_pics_big {
+        cursor: pointer;
+    }
+
+    .add_subject {
+        width: 30px;
+        height: 30px;
+        font-size: 20px;
+        overflow: hidden;
+        padding: 0px;
+        border: 2px solid var(--dark-green);
+        color: var(--dark-green);
+        font-weight: bold;
+        line-height: 15px;
+        float: right;
+    }
+
+    #subjects_holder{
+        float: left;
+        color: gray;
+        margin-left: 5px;
+    }
+
+    .my_post_holder{
+        width: 100%;
+        margin-top: 10px;
+    }
+
+    .my_post {
+        width: 60%;
+        min-width: 280px;
+        margin: auto;
+        border: 2px solid var(--dark-green);
+        padding: 10px;
+        display: inline block;
+    }
+
+    .my_post button {
+        width: 30px;
+        height: 30px;
+        float: right;
+        margin-top: -27.5px;
+        color: var(--dark-green);
+        font-weight: bold;
+        padding: 0px;
+        text-align: center;
+        background-image: url("{% static 'icons/trash.svg' %}");
+        background-size: 90%;
+        background-repeat: none;
+        background-position: center;
+        border: none;
+    }
+
+    #subject_selector_row{
+        transform: scale(0);
+        transition: 0.1s;
+    }
+
+    #subject_selector_holder select {
+        width: 80%;
+        border-radius:  5px 0px 0px 5px;
+        height: 40px;
+        border: 2px solid var(--dark-green);
+        border-right: 0px;
+        color: var(--dark-green);
+        font-weight: bold;
+        -webkit-appearance: none;
+        -moz-appearance: none;
+        text-indent: 1px;
+        text-overflow: '';
+        cursor: pointer;
+    }
+
+    #subject_selector_holder .next_the_selector{
+        width: 20%;
+        border-radius:  0px 5px 5px 0px;
+        height: 40px;
+        background-color: var(--dark-green);
+        color: white;
+    }
+
 </style>
 {% endblock head-content %}
 
@@ -72,37 +154,78 @@
 
     <div class="row">
         <div class="col-md-6">
-            <div id="profile_pics_big"></div>
+            <div id="profile_pics_big" v-on:click="changeProfilePics"></div>
         </div>
         <div class="col-md-6">
-            <form>
+            <!-- <form> -->
                 <table class="table profile-table">
                     <tr>
                         <td>Felhasználónév:</td>
                         <td>
-                            <input type="text" id="username" name="username" placeholder="{{ request.user.username }}"></td>
+                            <input type="text" id="username" name="username" placeholder="{{ request.user.username }}">
+                        </td>
                     </tr>
                     <tr>
                         <td>Email cím:</td>
                         <td><input type="email" id="email" name="email" placeholder="{{ request.user.email }}"></td>
                     </tr>
                     <tr>
+                        <td>Követett tantárgyak</td>
+                        <td>
+                            <div id="subjects_holder"></div>
+                            <button class="add_subject" id="add_subject_btn" v-on:click="addNewSubjectVisibility()">+</button>
+                        </td>
+                    </tr>
+                    <tr id="subject_selector_row">
                         <td></td>
-                        <td></td>
+                        <td id="subject_selector_holder">
+                            <select name="subject" id="subject_selector">
+                       
+                            {% for subject in subjects %}
+                                <option value="{{ subject.id }}|{{ subject.subject_name}}">{{ subject.subject_name }}</option>
+                            {% endfor %}
+        
+                        </select>
+                        <button class="add_subject next_the_selector" v-on:click="addNewSubject()">+</button>
+                        </td>
                     </tr>
                 </table>
-            </form>
-            <button v-on:click="saveChanges" class="save">Változások mentése</button>
+            <!-- </form> -->
 
+
+            <button v-on:click="saveChanges" class="save">Változások mentése</button>
         </div>
-    </div>   
+    </div>
+    <br>
+    <br>
+    <div class="row">
+        {% for post in posts %}
+            <div class="my_post_holder">
+                <div class="my_post">
+                    <div>{{ post }}</div>
+                <button v-on:click="remove({{ post.id }})"></button>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
 </div>
 
 {% endblock content %}
 
 {% block scripts %}
 <script>
-    let profilepicsurl = '{{ picture }}';
+    let profilepicsurl = '{{ request.user.profile.image.url }}';
+    let user_subjects = '{{ request.user.profile.subjects }}';
+
+    let subjects_arr = '{% for subject in subjects %}{{ subject.id }}|{{ subject.subject_name }} {% endfor %}'.split(" ");
+    let subjects = [];
+    
+    for(let i = 0; i < subjects_arr.length-1; i++){
+        subjects.push(subjects_arr[i].split("|"))
+    }
+
+    let url_remove = "{% url 'remove_post' %}";
+    let url_refreshSubject = "{% url 'refreshSubject' %}";
 </script>
 
 <script src="{% static 'js/profile.js' %}"></script>

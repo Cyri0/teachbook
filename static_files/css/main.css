@@ -131,28 +131,3 @@
     .sendNewPost:active{
         transform: scale(1.1);
     }
-
-    .post_title{
-        color: white;
-        font-size: 24px;
-        line-height: 80px;
-        margin-left: 20px;
-    }
-
-    .history .post-footer,
-    .history .post-header,
-    .history .row{
-        background-color: #184336;
-    }
-
-    .it .post-footer,
-    .it .post-header,
-    .it .row{
-        background-color: #1F456E;
-    }
-
-    .hun_lang .post-footer,
-    .hun_lang .post-header,
-    .hun_lang .row{
-        background-color: #c70039;
-    }

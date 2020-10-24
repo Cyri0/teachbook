@@ -7,6 +7,33 @@
 
 {% block head-content %}
 <link rel="stylesheet" type="text/css" href={% static 'css/main.css' %}>
+
+<style>
+    .post_author{
+        float: left;
+        width: 50px;
+        height: 50px;
+        border-radius: 50%;
+        text-align: center;
+        background-color: lightblue;
+        overflow: hidden;
+        background-position: center;
+        background-size: cover;
+        margin-top: 15px;
+        margin-left: 15px;
+    }
+
+    .post_title{
+        color: white;
+        font-size: 24px;
+        line-height: 80px;
+        margin-left: 15px;
+        width: calc(100% - 90px);
+        float: right;
+    }
+
+</style>
+
 {% endblock head-content %}
 
 {% block content %}
@@ -20,16 +47,19 @@
     <form action="{% url 'addNewPost' %}" method="post">
     {% csrf_token %}
     <div class="post newPost" id="newPost" v-bind:class="{ newPostOpen: newPostPanelVisible }">
-        <div class="container post-header" >
+        <div class="container post-header">
             <div class="row" id="post_header" >
                 <div class="col-md-8">
                     <input type="text"  v-model="new_title" id="post_title" placeholder="Add meg a címet!" name="post_title">
                 </div>
                 <div class="col-md-4">
                     <select name="subject" v-model="new_subject" id="subject" @change="changeColor">
-                        <option value="history">történelem</option>
-                        <option value="it">informatika</option>
-                        <option value="hun_lang">magyar</option>
+
+                        
+                        {% for subject in subjects %}
+                            <option value="{{ subject.id }}|{{ subject.subject_color }}">{{ subject.subject_name }}</option>
+                        {% endfor %}
+
                     </select>
                 </div>
             </div>
@@ -52,9 +82,10 @@
     </form>
 
     {% for post in posts %}
-    <div class="post {{ post.post_subject }}">
+    <div class="post" db_id="{{ post.post_subject }}">
         <div class="post-header">
             <div class="post_title">{{ post.post_title }}</div>
+            <div class="post_author" id="post_author" style="background-image: url('{% for user in users %}{% if user.id == post.post_author %}{{ user.profile.image.url }}{% endif %}{% endfor %}');"></div>
         </div>
         <div class="post-content">
             {{ post.post_content }}<br>
@@ -70,7 +101,16 @@
 {% endblock content %}
 
 {% block scripts %}
-<script>let url = "{% url 'testPostRequest' %}";</script>
+<script>
+let url = "{% url 'testPostRequest' %}";
+let subjects = '{% for subject in subjects %}{{subject.id}}|{{subject.subject_name}}|{{subject.subject_color}} {% endfor%}'.split(" ");
+let arr = [];
+for(let i = 0; i < subjects.length-1; i++){
+    arr.push(subjects[i].split("|"));
+}
+subjects = arr;
+
+</script>
 <script src="{% static 'js/main.js' %}">
     
 </script>

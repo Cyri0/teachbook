@@ -41,6 +41,8 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'blogposts',
     'profileHandler',
+    'colorfield',
+    'subjects'
 ]
 
 MIDDLEWARE = [
