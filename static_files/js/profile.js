@@ -3,7 +3,8 @@ let profile = new Vue({
     el: '#profile',
     data: {
         actual_subjects: "",
-        actual_subjects_text: []
+        actual_subjects_text: [],
+        picsFormIsActive : false,
     },
     mounted(){
         let profile_pics = document.getElementById('profile_pics_big');
@@ -76,7 +77,7 @@ let profile = new Vue({
             console.log("Email változtatás (tesztelendő email: "+email+")");
         },
         changeProfilePics: function(){
-            alert("Képváltoztatás!");
+            this.picsFormIsActive = !this.picsFormIsActive;
         },
         addNewSubjectVisibility: function(){
             let btn = document.getElementById("add_subject_btn");

@@ -1,0 +1,181 @@
+
+    .profile-container {
+        margin-top: 100px;
+        position: relative;
+    }
+
+    .profile-table {
+        max-width: 500px;
+        margin: auto;
+    }
+
+    .save {
+        height: 50px;
+        padding-right: 10px;
+        padding-left: 10px;
+        border: none;
+        float: right;
+        color: var(--dark-green);
+        font-weight: bold;
+        border: 2px solid var(--dark-green);
+        transition: 0.3s;
+    }
+
+    .save:hover {
+        background-color: var(--dark-green);
+        color: white;
+    }
+
+    .table input {
+        position: relative;
+        border: none;
+        padding-left: 5px;
+        padding-right: 5px;
+
+    }
+
+    .table input:focus {
+        border: 1px solid gray;
+        border-radius: 5px;
+    }
+
+
+    #profile_pics_big {
+        width: 150px;
+        height: 150px;
+        margin: auto;
+        margin-top: 20px;
+        margin-bottom: 50px;
+        border-radius: 50%;
+        border: 1px solid black;
+        background-size: cover;
+        background-position: center;
+    }
+
+    #profile_pics_big {
+        cursor: pointer;
+    }
+
+    .add_subject {
+        width: 30px;
+        height: 30px;
+        font-size: 20px;
+        overflow: hidden;
+        padding: 0px;
+        border: 2px solid var(--dark-green);
+        color: var(--dark-green);
+        font-weight: bold;
+        line-height: 15px;
+        float: right;
+    }
+
+    #subjects_holder button{
+        float: left;
+        width: 100px;
+        margin-right: calc(100% - 100px);
+        color: gray;
+        border: none;
+        margin-left: 5px;
+        background-color: var(--transparent);
+        text-align: left;
+
+    }
+
+    #subjects_holder button:hover{
+        background-color: var(--transparent);
+        text-decoration: line-through;
+    }
+
+    .my_post_holder{
+        width: 100%;
+        margin-top: 10px;
+    }
+
+    .my_post {
+        width: 100%;
+        min-width: 280px;
+        margin: auto;
+        border: 2px solid var(--dark-green);
+        padding: 10px;
+        display: inline-block;
+    }
+
+    .my_post button {
+        width: 30px;
+        height: 30px;
+        float: right;
+        margin-top: -27.5px;
+        color: var(--dark-green);
+        font-weight: bold;
+        padding: 0px;
+        text-align: center;
+        background-image: url("{% static 'icons/trash.svg' %}");
+        background-size: 90%;
+        background-repeat: none;
+        background-position: center;
+        border: none;
+    }
+
+    #subject_selector_row{
+        transform: scale(0);
+        transition: 0.1s;
+    }
+
+    #subject_selector_holder select {
+        width: 80%;
+        border-radius:  5px 0px 0px 5px;
+        height: 40px;
+        border: 2px solid var(--dark-green);
+        border-right: 0px;
+        color: var(--dark-green);
+        font-weight: bold;
+        -webkit-appearance: none;
+        -moz-appearance: none;
+        text-indent: 1px;
+        text-overflow: '';
+        cursor: pointer;
+    }
+
+    #subject_selector_holder .next_the_selector{
+        width: 20%;
+        border-radius:  0px 5px 5px 0px;
+        height: 40px;
+        background-color: var(--dark-green);
+        color: white;
+    }
+
+    .pics_form_holder{
+        height: 0px;
+        overflow: hidden;
+        transition: 0.5s;
+
+    }
+
+    .pics_form_holder input{
+        /* width: 100%;
+        padding-left: calc(100% / 4); */
+        margin-bottom: 20px;
+    }
+
+    .pics_form_holder_active{
+        height: 100px;
+
+    }
+
+   #pics_upload_btn{
+        width: 150px;
+        margin-left: calc(50% - 75px);
+        padding: 0;
+        border: 2px solid var(--dark-green);
+        background-color: var(--dark-green);
+        color: white;
+        font-weight: bold;
+        transition: 0.2s;
+        line-height: 24px;
+        font-size: 16px;
+        border-radius: 5px;
+    }
+
+    #pics_upload_btn:hover{
+        font-size: 17px;
+    }

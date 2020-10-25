@@ -33,7 +33,8 @@ urlpatterns = [
     path ('', include('blogposts.urls')),
     path('testPostRequest', views.testPostRequest, name='testPostRequest'),
     path('remove_post', views.remove_post, name='remove_post'),
-    path('refreshSubject', views.refreshSubject, name='refreshSubject')
+    path('refreshSubject', views.refreshSubject, name='refreshSubject'),
+    path('uploadProfilePics', views.uploadProfilePics, name='uploadProfilePics')
 ]
 
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

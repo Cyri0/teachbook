@@ -10,16 +10,11 @@ def home_view(request):
     if(len(request.user.username) == 0):
         return render(request, 'main/landing.html')
     else:
-        print('\n\n nt:' +str(request.user.id) + '\n\n')
-
         posts = []
 
         for sub_id in request.user.profile.subjects.split("|"):        
             test = BlogPost.objects.filter(post_subject = sub_id)
-            print(sub_id + " - " + str(list(test)))
             posts = posts + (list(test))
-
-        print(posts)
 
         users = User.objects.order_by('id')
         users = list(users)
@@ -68,8 +63,6 @@ def loginAfterRegistration(registrationData,request):
         username = None
         username = request.user.username
         email = request.user.email
-        print(username)
-        print(email)
 
         return True
     else:
@@ -129,7 +122,6 @@ def remove_post(request):
     key = None
     for x in request.POST.keys():
         key = x
-    print(key)
 
     BlogPost.objects.filter(id = key).delete();
     return profile_view(request) 
@@ -138,8 +130,7 @@ def refreshSubject(request):
     key = None
     for x in request.POST.keys():
         key = x
-    print(key)
-
+        
     profile = request.user.profile
     profile.subjects = key
     profile.save()
@@ -167,6 +158,17 @@ def testPostRequest(request):
         post_title = post_dict["title"],
         likes = 0
         )
-
     new_post.save()
     return redirect("/")
+
+def uploadProfilePics(request):
+
+    if request.method == 'POST':
+        print(request.POST)
+        file_object = request.FILES['new_profile_pics']
+        print(type(file_object))
+
+        request.user.profile.image = file_object
+        request.user.profile.save()
+
+    return profile_view(request)
