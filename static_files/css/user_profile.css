@@ -19,3 +19,35 @@
     border: 2px solid var(--dark-green);
     margin: auto;
 }
+
+
+
+.followed_subjects {
+    align-items: center;
+}
+
+.followed_subjects div div
+{
+    text-align: left;
+    font-style: italic;
+    margin-top: 10px;
+}
+
+.post_holder_row{
+    margin: auto;
+    margin-top: 20px;
+}
+
+.user_post{
+    margin-bottom: 40px;
+    width: 100%;
+    min-height: 200px;
+    border-radius: 10px;
+    overflow: hidden;
+
+    -webkit-box-shadow: 0px 0px 5px 0px rgba(0, 0, 0, 0.75);
+    -moz-box-shadow: 0px 0px 5px 0px rgba(0, 0, 0, 0.75);
+    box-shadow: 0px 0px 5px 0px rgba(0, 0, 0, 0.75);
+
+
+}

@@ -180,9 +180,13 @@ def openUserProfile(request, user_id):
     print(user.username)
     subjects = SchoolSubject.objects.order_by('id')
     subjects = list(subjects)
+
+    user_posts = BlogPost.objects.filter(post_author = user.id)
+
     data = {
         'seen_user':user,
-        'subject_list':subjects
+        'subject_list':subjects,
+        'user_posts':user_posts
     }
 
     return render(request, 'main/profile/user_profile.html', data)

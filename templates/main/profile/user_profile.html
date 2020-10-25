@@ -5,19 +5,67 @@
 {% endblock title%}
 {% block head-content %}
 <link rel="stylesheet" type="text/css" href={% static 'css/user_profile.css' %}>
+<link rel="stylesheet" type="text/css" href={% static 'css/main.css' %}>
+
 {% endblock head-content %}
 {% block content %}
 {% include 'main/navbar.html' %}
 
 
-<div class="container user_profile_container">
+<div class="container user_profile_container" id="user_profile_container">
     <div class="row">
         <div class="col-md-6">
             <div class="user_profile_pics" style="background-image: url('{{ seen_user.profile.image.url }}')"></div>
         </div>
         <div class="col-md-6">
             <h1>{{ seen_user.username }}</h1>
-            <h2 id="subjects"></h2>
+            
+            <div class="container followed_subjects">
+                <br>
+                <b>Követett tantárgyak:</b><br>
+                |
+                <i v-for="item in user_subjects_text" :key="user_subjects_text" >[[ item ]] | </i>
+            </div>
+        </div>
+    </div>
+    <br><br><br>
+    <div class="row post_holder_row">
+        <div class="col-md-12">
+
+            {% for post in user_posts %}
+                
+                <div class="user_post" db_id="{{ post.post_subject }}">
+                    <div class="post-header">
+                        <div class="post_title">{{ post.post_title }}
+                            <a href="{% url 'openUserProfile' user.id %}"><p>{{ seen_user.username }}</p></a>
+                        </div>
+            
+                        <a href="{% url 'openUserProfile' user.id %}">
+                            <div class="post_author" style="background-image: url('{{ seen_user.profile.image.url }}');"></div>
+                        </a>
+                    </div>
+                    <div class="post-content">
+                        {{ post.post_content }}<br>
+                        {% if post.file %}
+                        <br>
+                        <div class="file_downloader">
+                            <div>{{ post.file }}</div>
+                            <a href="{{ post.file.url }}" target="_blank">
+                                <button class="download_file_btn" v-on:click="downloadFile({{ post.id }})"></button>
+                            </a>
+                        </div>
+                        {% endif %}
+                    </div>
+
+                    <div class="post-footer">
+                        <button class="likebutton" @click="like({{ post.id }})">
+                            <img src="{% static 'icons/heart-regular.svg' %}">
+                        </button>
+                        <div class="likes">{{ post.likes }}</div>
+                    </div>
+                </div>
+            {% endfor %}
+
         </div>
     </div>
     
@@ -27,7 +75,7 @@
 
 
 <input type="hidden" value="{{ seen_user.profile.subjects }}" id="user_subjects">
-<input type="hidden" value="{% for sub in subject_list %}{{ sub.id }}|{{ sub.subject_name }} {% endfor %}" id="subjects_holder">
+<input type="hidden" value="{% for sub in subject_list %}{{ sub.id }}|{{ sub.subject_name }}|{{ sub.subject_color }} {% endfor %}" id="subjects_holder">
 
 
 {% endblock content %}
