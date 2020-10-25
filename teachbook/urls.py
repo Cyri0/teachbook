@@ -34,7 +34,8 @@ urlpatterns = [
     path('testPostRequest', views.testPostRequest, name='testPostRequest'),
     path('remove_post', views.remove_post, name='remove_post'),
     path('refreshSubject', views.refreshSubject, name='refreshSubject'),
-    path('uploadProfilePics', views.uploadProfilePics, name='uploadProfilePics')
+    path('uploadProfilePics', views.uploadProfilePics, name='uploadProfilePics'),
+    path('openUserProfile/<int:user_id>', views.openUserProfile, name='openUserProfile'),
 ]
 
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

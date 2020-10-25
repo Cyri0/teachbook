@@ -100,7 +100,7 @@
         display: inline-block;
     }
 
-    .my_post button {
+    .my_post .removeBtn {
         width: 30px;
         height: 30px;
         float: right;
@@ -109,7 +109,7 @@
         font-weight: bold;
         padding: 0px;
         text-align: center;
-        background-image: url("{% static 'icons/trash.svg' %}");
+         background-image: url("../icons/trash.svg");
         background-size: 90%;
         background-repeat: none;
         background-position: center;

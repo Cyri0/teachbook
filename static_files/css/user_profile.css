@@ -1,0 +1,21 @@
+.user_profile_container{
+    margin-top: 150px;
+    max-width: 800px;
+}
+
+.user_profile_container h1 {
+    text-align: center;
+    margin-top: 20px;
+}
+
+.user_profile_pics{
+    width: 250px;
+    height: 250px;
+    overflow: hidden;
+    border-radius: 50%;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    border: 2px solid var(--dark-green);
+    margin: auto;
+}

@@ -76,6 +76,12 @@ var app = new Vue({
             console.log(JSON.stringify(newContentData));
             axios.post(url, JSON.stringify(newContentData) ).then(response => this.articleId = response.data.id);
             location.reload();
+        },
+        downloadFile: function (post_id){
+            console.log(post_id + " megnyitva!");
+        },
+        redirectToProfilePage: function(user_id){
+            alert(user_id);
         }
     }
 });

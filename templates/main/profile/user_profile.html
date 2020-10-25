@@ -1,0 +1,47 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}
+- Közösségi oldal, tanároknak!
+{% endblock title%}
+{% block head-content %}
+<link rel="stylesheet" type="text/css" href={% static 'css/user_profile.css' %}>
+{% endblock head-content %}
+{% block content %}
+{% include 'main/navbar.html' %}
+
+
+<div class="container user_profile_container">
+    <div class="row">
+        <div class="col-md-6">
+            <div class="user_profile_pics" style="background-image: url('{{ seen_user.profile.image.url }}')"></div>
+        </div>
+        <div class="col-md-6">
+            <h1>{{ seen_user.username }}</h1>
+            <h2 id="subjects"></h2>
+        </div>
+    </div>
+    
+
+    
+</div>
+
+
+<input type="hidden" value="{{ seen_user.profile.subjects }}" id="user_subjects">
+<input type="hidden" value="{% for sub in subject_list %}{{ sub.id }}|{{ sub.subject_name }} {% endfor %}" id="subjects_holder">
+
+
+{% endblock content %}
+{% block scripts %}
+
+<script>
+    let user_subjects = document.getElementById("user_subjects").value.split("|");
+    let subj = document.getElementById("subjects_holder").value.split(" ");
+    let allSubjects = [];
+    for(let i = 0; i < subj.length-1; i++){
+        allSubjects.push(subj[i].split("|"));
+    }
+</script>
+
+<script src="{% static 'js/user_profile.js' %}"></script>
+
+{% endblock scripts %}

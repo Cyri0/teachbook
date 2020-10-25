@@ -75,7 +75,7 @@
             <div class="my_post_holder">
                 <div class="my_post">
                     <div>{{ post }}</div>
-                <button v-on:click="remove({{ post.id }})"></button>
+                    <button class="removeBtn" v-on:click="remove({{ post.id }})"></button>
                 </div>
             </div>
         {% endfor %}

@@ -7,6 +7,7 @@ class BlogPost(models.Model):
     post_content = models.TextField(default="")
     likes = models.IntegerField()
     post_author = models.IntegerField()
+    file = models.FileField(blank=True)
 
     def __str__(self):
         return self.post_title

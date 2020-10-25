@@ -100,6 +100,7 @@ nav {
   z-index: 999;
   background-size: cover;
   background-position: center;
+  background-repeat: no-repeat;
 }
 
 .profile_pics:hover{

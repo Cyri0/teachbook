@@ -58,11 +58,31 @@
     {% for post in posts %}
     <div class="post" db_id="{{ post.post_subject }}">
         <div class="post-header">
-            <div class="post_title">{{ post.post_title }}</div>
-            <div class="post_author" id="post_author" style="background-image: url('{% for user in users %}{% if user.id == post.post_author %}{{ user.profile.image.url }}{% endif %}{% endfor %}');"></div>
+            {% for user in users %}
+                {% if user.id == post.post_author %}
+                    <div class="post_title">{{ post.post_title }}
+                        <a href="{% url 'openUserProfile' user.id %}"><p>{{ user.username }}</p></a>
+                    </div>
+
+                    <a href="{% url 'openUserProfile' user.id %}">
+                        <div class="post_author" style="background-image: url('{{ user.profile.image.url }}');"></div>
+                    </a>
+                {% endif %}
+            {% endfor %}
+
         </div>
         <div class="post-content">
             {{ post.post_content }}<br>
+
+            {% if post.file %}
+            <br>
+            <div class="file_downloader">
+                <div>{{ post.file }}</div>
+                <a href="{{ post.file.url }}" target="_blank">
+                    <button class="download_file_btn" v-on:click="downloadFile({{ post.id }})"></button>
+                </a>
+            </div>
+            {% endif %}
 
             <input type="hidden" class="stored_post_author" value="{{ post.post_author }}">
             <input type="hidden" class="stored_post_subject" value="{{ post.post_subject }}">

@@ -172,3 +172,17 @@ def uploadProfilePics(request):
         request.user.profile.save()
 
     return profile_view(request)
+
+def openUserProfile(request, user_id):
+    print(user_id)
+
+    user = User.objects.filter(id = user_id)[0]
+    print(user.username)
+    subjects = SchoolSubject.objects.order_by('id')
+    subjects = list(subjects)
+    data = {
+        'seen_user':user,
+        'subject_list':subjects
+    }
+
+    return render(request, 'main/profile/user_profile.html', data)
