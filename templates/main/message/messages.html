@@ -1,0 +1,126 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}
+- Közösségi oldal, tanároknak!
+{% endblock title%}
+
+{% block head-content %}
+
+<style>
+
+.msg_menu{
+    height: 50px;
+    margin-top: 20px;
+    border: 2px solid var(--dark-green);
+    padding: 0;
+    margin-bottom: 40px;
+}
+
+.income_outcome_btn{
+    width: 50%;
+    text-align: center;
+    height: 100%;
+    float: left;
+    line-height: 48px;
+    font-weight: bold;
+}
+
+.income_outcome_btn:hover{
+    cursor: pointer;
+    text-decoration: underline;
+}
+
+.active_btn{
+    background-color: var(--dark-green);
+    color: white;
+}
+
+
+.table_holder{
+    width: 100%;
+    display: none;
+}
+.active_table{
+    display: inline;
+}
+
+</style>
+
+{% endblock head-content %}
+
+{% block content %}
+
+{% include 'main/navbar.html' %}
+
+<div class="container" style="margin-top: 80px;" id="messages_app">
+    <div class="row">
+        <div class="col-lg-12 msg_menu">
+            <div class="income_outcome_btn" @click="changeIncoming(true)" v-bind:class="{ active_btn : incoming }">Bejövő</div>
+            <div class="income_outcome_btn" @click="changeIncoming(false)" v-bind:class="{ active_btn : !incoming }">Kimenő</div>
+        </div>
+
+        <div class="table_holder" v-bind:class="{ active_table : !incoming }">
+            <table class="table table-striped" id="outgoing">
+                <tr>
+                    <th class="col-3">Címzett</th>
+                    <th class="col-6">Tárgy</th>
+                    <th class="col-3">Dátum</th>
+                </tr>
+                {% for message in outgoing %}
+                <tr>
+                    <td><a href="{% url 'openUserProfile' message.receiver.id %}">{{message.receiver.username}}</a></td>
+                    <td><a href="{% url 'msg' message.id %}">{{message.title}}</a></td>
+                    <td>{{ message.date|date:"M d, Y" }}</td>
+                </tr>
+                {% endfor %}
+            </table>
+        </div>
+
+        <div class="table_holder" v-bind:class="{ active_table : incoming }">
+            <table class="table table-striped" id="incoming">
+                <tr>
+                    <th class="col-3">Küldő</th>
+                    <th class="col-6">Tárgy</th>
+                    <th class="col-3">Dátum</th>
+                </tr>
+                {% for message in incoming %}
+                <tr>
+                    <td><a href="{% url 'openUserProfile' message.sender.id %}">{{message.sender.username}}</a></td>
+                    <td><a href="{% url 'msg' message.id %}">{{message.title}}</a></td>
+                    <td>{{ message.date|date:"M d, Y" }}</td>
+                </tr>
+                {% endfor %}
+            </table>
+        </div>
+    </div>
+
+</div>
+
+
+
+{% endblock content %}
+
+{% block scripts %}
+
+<script>
+
+let messages_app = new Vue({
+    delimiters: ["[[", "]]"],
+    el: '#messages_app',
+    data: {
+        incoming:true
+    },
+    mounted(){
+    },
+    methods: {
+        changeIncoming: function(bool){
+            this.incoming = bool;
+        }
+    }
+});
+
+</script>
+
+
+{% endblock scripts %}

@@ -9,6 +9,9 @@ class Profile(models.Model):
     image = models.ImageField(default='basic_avatar.png')
     subjects = models.CharField(blank=True, max_length=2000)
 
+    def __str__(self):
+        return self.user.username
+
     def set_subjects(self, x):
         self.subjects = json.dumps(x)
 

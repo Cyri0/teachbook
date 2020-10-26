@@ -28,7 +28,7 @@ urlpatterns = [
     path('login', views.login_view, name='login-view'),
     path('regularLogin', views.regularLogin, name='regularLogin'),
     path ('profile', views.profile_view, name='profileView'),
-    path ('settings', views.settings_view, name='settingsView'),
+    path ('messages', views.messages_view, name='messagesView'),
     path ('logout', views.logout_view, name='logoutView'),
     path ('', include('blogposts.urls')),
     path('testPostRequest', views.testPostRequest, name='testPostRequest'),
@@ -36,6 +36,7 @@ urlpatterns = [
     path('refreshSubject', views.refreshSubject, name='refreshSubject'),
     path('uploadProfilePics', views.uploadProfilePics, name='uploadProfilePics'),
     path('openUserProfile/<int:user_id>', views.openUserProfile, name='openUserProfile'),
+    path('msg/<int:msg_id>', views.msg_view, name='msg')
 ]
 
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

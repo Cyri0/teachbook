@@ -106,3 +106,14 @@ nav {
 .profile_pics:hover{
   cursor: pointer;
 }
+
+#message_icon{
+  width: 15px;
+  height: 15px;
+  background-color: var(--dark-green);
+  position: relative;
+  top: 2px;
+  display: inline-block;
+  -webkit-mask: url("../icons/envelope.svg") no-repeat center;
+  mask: url("../icons/envelope.svg") no-repeat center;
+}

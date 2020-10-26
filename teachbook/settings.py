@@ -42,7 +42,8 @@ INSTALLED_APPS = [
     'blogposts',
     'profileHandler',
     'colorfield',
-    'subjects'
+    'subjects',
+    'messageSender'
 ]
 
 MIDDLEWARE = [

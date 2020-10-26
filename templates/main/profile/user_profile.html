@@ -19,16 +19,19 @@
         </div>
         <div class="col-md-6">
             <h1>{{ seen_user.username }}</h1>
+            <div class="personal_message">
+                <button>Üzenet <div id="send_icon"></div> </button>
+            </div>
             
             <div class="container followed_subjects">
                 <br>
                 <b>Követett tantárgyak:</b><br>
-                |
-                <i v-for="item in user_subjects_text" :key="user_subjects_text" >[[ item ]] | </i>
+                |<i v-for="item in user_subjects_text" :key="user_subjects_text" >[[ item ]] | </i>
             </div>
+
         </div>
     </div>
-    <br><br><br>
+    
     <div class="row post_holder_row">
         <div class="col-md-12">
 

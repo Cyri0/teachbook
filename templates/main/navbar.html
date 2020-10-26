@@ -1,6 +1,10 @@
 {% load static %}
 <link rel="stylesheet" type="text/css" href={% static 'css/navbar.css' %}>
 
+<style>
+</style>
+
+
 <nav>
   <div class="container wrapper" id="my_navbar">
     <ul>
@@ -24,7 +28,7 @@
                 <a href="{% url 'profileView' %}">Profilom</a>
               </li>
               <li>
-                <a href="{% url 'settingsView' %}">Beállítások</a>
+                <a href="{% url 'messagesView' %}">Üzenetek <div id="message_icon"></div></a>
               </li>
               <li>
                 <a href="{% url 'logoutView' %}">Kijelentkezés</a>

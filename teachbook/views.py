@@ -4,6 +4,8 @@ from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login, logout
 from blogposts.models import BlogPost
 from subjects.models import SchoolSubject
+
+from messageSender.views import *
 import json 
 
 def home_view(request):
@@ -137,9 +139,6 @@ def refreshSubject(request):
     print(profile)
 
     return profile_view(request)
-
-def settings_view(request):
-    return render(request, 'main/menu/settings.html')
 
 def testPostRequest(request):
     print("Eredmény:")

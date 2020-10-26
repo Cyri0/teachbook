@@ -1,0 +1,141 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}
+- Közösségi oldal, tanároknak!
+{% endblock title%}
+
+{% block head-content %}
+
+<style>
+    body{
+        background: #F0F0F0;
+    }
+
+    .message_box{
+        padding-top: 50px;
+        display: block;
+    }
+
+
+    .row {
+        max-width: 800px;
+        margin: auto;
+    }
+
+    .content{
+        border: 2px solid var(--dark-green);
+        padding: 20px;
+        background: white;
+    }
+    
+    .message_text{
+        min-height: 30vh;
+    }
+
+    .reply{
+        height: 60px;
+        width: 100%;
+    }
+
+    .reply button {
+        margin: 0px;
+        height: 60px;
+        float: right;
+        width: 100px;
+        border: 3px solid var(--dark-green);
+        color: var(--dark-green);
+        font-weight: bold;
+        transition: 0.5s;
+        border-radius: 5px;
+    }
+
+    .reply button:hover{
+        background-color: var(--dark-green);
+        color: white;
+    }
+
+    .title{
+        background-color: var(--dark-green);
+        color: white;
+        margin-bottom: 0px;
+        padding: 10px;
+        display: inline-block;
+        width: 100%;
+    }
+
+
+    .sender_and_date{
+        height: 100%;
+        width: calc(100% / 3);
+        float: left;
+    }
+
+    .sender_and_date a, .sender_and_date a:hover{
+        color: white;
+    }
+
+    .msg_title{
+        width: calc(100% / 3 * 2);
+        font-size: 30px;
+        float: left;
+    }
+
+
+</style>
+
+{% endblock head-content %}
+
+{% block content %}
+
+{% include 'main/navbar.html' %}
+
+<div class="container" style="margin-top: 80px;" id="msg_app">
+    
+    <div class="row message_box">
+        <div class="title">
+            <div class="msg_title">{{ msg.title }}</div>
+            
+            <div class="sender_and_date"><a href="{% url 'openUserProfile' msg.sender.id %}">{{ msg.sender.username }}</a>
+                 &rarr; 
+                 <a href="{% url 'openUserProfile' msg.receiver.id %}">{{ msg.receiver.username }}</a>
+                 <br>{{ msg.date|date:"Y m D - H:i:s" }}
+            </div>
+        </div>
+        <div class="content">
+            <div class="message_text">
+                {{ msg.msg }}
+            </div>
+
+            <div class="reply">
+                <button id="reply_btn">Válasz</button>
+            </div>
+        </div>
+
+
+
+    </div>
+
+</div>
+{% endblock content %}
+
+{% block scripts %}
+
+<script>
+
+let messages_app = new Vue({
+    delimiters: ["[[", "]]"],
+    el: '#msg_app',
+    data: {
+        incoming:true
+    },
+    mounted(){
+    },
+    methods: {
+    }
+});
+
+</script>
+
+
+{% endblock scripts %}
