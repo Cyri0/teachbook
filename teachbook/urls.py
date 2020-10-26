@@ -36,7 +36,8 @@ urlpatterns = [
     path('refreshSubject', views.refreshSubject, name='refreshSubject'),
     path('uploadProfilePics', views.uploadProfilePics, name='uploadProfilePics'),
     path('openUserProfile/<int:user_id>', views.openUserProfile, name='openUserProfile'),
-    path('msg/<int:msg_id>', views.msg_view, name='msg')
+    path('msg/<int:msg_id>', views.msg_view, name='msg'),
+    path('send_msg/<int:user_id>', views.send_msg_view, name='send_msg'),
 ]
 
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

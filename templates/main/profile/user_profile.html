@@ -20,7 +20,10 @@
         <div class="col-md-6">
             <h1>{{ seen_user.username }}</h1>
             <div class="personal_message">
-                <button>Üzenet <div id="send_icon"></div> </button>
+
+                <a href="{% url 'send_msg' seen_user.id %}">
+                    <button>Üzenet <div id="send_icon"></div> </button>
+                </a>
             </div>
             
             <div class="container followed_subjects">

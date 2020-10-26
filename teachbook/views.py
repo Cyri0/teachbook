@@ -4,8 +4,8 @@ from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login, logout
 from blogposts.models import BlogPost
 from subjects.models import SchoolSubject
-
 from messageSender.views import *
+
 import json 
 
 def home_view(request):

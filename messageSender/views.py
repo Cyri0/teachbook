@@ -24,3 +24,13 @@ def msg_view(request, msg_id):
     }
 
     return render(request, 'main/message/msg.html', data)
+
+
+def send_msg_view(request, user_id):
+
+    target = User.objects.filter(id = user_id)[0]
+
+    data = {
+        "target": target
+    }
+    return render(request, 'main/message/send_msg.html', data)
