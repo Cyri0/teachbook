@@ -257,3 +257,9 @@
     .download_file_btn:hover{
         background-size: 80%;
     }
+
+    @media screen and (max-width: 767px){
+        .newPostOpen {
+            height: calc(50vh + 80px);
+        }
+    }

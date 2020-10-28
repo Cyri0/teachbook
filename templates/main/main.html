@@ -79,7 +79,7 @@
             <div class="file_downloader">
                 <div>{{ post.file }}</div>
                 <a href="{{ post.file.url }}" target="_blank">
-                    <button class="download_file_btn" v-on:click="downloadFile({{ post.id }})"></button>
+                    <button class="download_file_btn" @click="downloadFile({{ post.id }})"></button>
                 </a>
             </div>
             {% endif %}
@@ -91,7 +91,7 @@
             <button class="likebutton" @click="like({{ post.id }})">
                 <img src="{% static 'icons/heart-regular.svg' %}">
             </button>
-            <div class="likes">{{ post.likes }}</div>
+            <div class="likes" id="like_{{ post.id }}">{{ post.likes }}</div>
         </div>
     </div>
     {% endfor %}
@@ -108,6 +108,9 @@ for(let i = 0; i < subjects.length-1; i++){
     arr.push(subjects[i].split("|"));
 }
 subjects = arr;
+
+
+let likeUrl = "{% url 'sendLike' %}";
 
 </script>
 <script src="{% static 'js/main.js' %}">

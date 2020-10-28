@@ -34,3 +34,20 @@ def send_msg_view(request, user_id):
         "target": target
     }
     return render(request, 'main/message/send_msg.html', data)
+
+
+def send_this_msg(request, user_id):
+    key = None
+    for x in request.POST.keys():
+        key = x
+    
+    data = json.loads(key)
+
+    my_msg = Message()
+    my_msg.title = data["title"]
+    my_msg.sender = request.user
+    my_msg.receiver = User.objects.filter(id = user_id)[0]
+    my_msg.msg = data["content"]
+    my_msg.save()
+
+    return messages_view(request)

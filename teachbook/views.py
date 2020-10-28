@@ -5,8 +5,13 @@ from django.contrib.auth import authenticate, login, logout
 from blogposts.models import BlogPost
 from subjects.models import SchoolSubject
 from messageSender.views import *
+from blogposts.views import *
+from profileHandler.views import *
+from django.core.mail import send_mail
 
 import json 
+
+
 
 def home_view(request):
     if(len(request.user.username) == 0):
@@ -26,6 +31,8 @@ def home_view(request):
         
         return render(request, 'main/main.html', context)
 
+
+
 def registration_view(request):
     data = {
         'isUsernameUsed':False,
@@ -33,6 +40,8 @@ def registration_view(request):
         'lastEmail':''
     }
     return render(request, 'registration/reg.html',data)
+
+
 
 def regularLogin(request):
 
@@ -57,7 +66,10 @@ def regularLogin(request):
         }
         return render (request, 'login/login.html', message)
 
+
+
 def loginAfterRegistration(registrationData,request):
+
     user = authenticate(request, username=registrationData["name"], password=registrationData["password"])
     if user is not None:
         login(request, user)
@@ -71,9 +83,13 @@ def loginAfterRegistration(registrationData,request):
         print("Sikertelen login...")
         return False
 
+
+
 def logout_view(request):
     logout(request)
     return render(request, 'main/landing.html')
+
+
 
 def successful_registration_view(request):
     registrationData = {
@@ -83,7 +99,6 @@ def successful_registration_view(request):
     }
 
     if(registration_try(registrationData, request)):
-        # return render (request, 'main/main.html')
         return redirect('/')
     else:
         print("Foglalt user name!")
@@ -94,6 +109,8 @@ def successful_registration_view(request):
         } 
         return render (request, 'registration/reg.html', data)
 
+
+
 def registration_try(registrationData, request):
     try:
         user = User.objects.create_user(username=registrationData["name"], email=registrationData["email"], password=registrationData["password"])
@@ -102,8 +119,12 @@ def registration_try(registrationData, request):
 
     return loginAfterRegistration(registrationData, request)
 
+
+
 def login_view(request):
     return render(request, 'login/login.html')
+
+
 
 def profile_view(request):
 
@@ -120,13 +141,6 @@ def profile_view(request):
     return render(request, 'main/menu/profile.html', data)
 
 
-def remove_post(request):
-    key = None
-    for x in request.POST.keys():
-        key = x
-
-    BlogPost.objects.filter(id = key).delete();
-    return profile_view(request) 
 
 def refreshSubject(request):
     key = None
@@ -139,53 +153,3 @@ def refreshSubject(request):
     print(profile)
 
     return profile_view(request)
-
-def testPostRequest(request):
-    print("Eredmény:")
-    post_json = None
-     
-    for x in request.POST.keys():
-        post_json = x
-
-    post_dict = json.loads(post_json) 
-    print(post_dict)
-
-    new_post = BlogPost(
-        post_author = post_dict["user_id"],
-        post_content = post_dict["content"],
-        post_subject = post_dict["subject"],
-        post_title = post_dict["title"],
-        likes = 0
-        )
-    new_post.save()
-    return redirect("/")
-
-def uploadProfilePics(request):
-
-    if request.method == 'POST':
-        print(request.POST)
-        file_object = request.FILES['new_profile_pics']
-        print(type(file_object))
-
-        request.user.profile.image = file_object
-        request.user.profile.save()
-
-    return profile_view(request)
-
-def openUserProfile(request, user_id):
-    print(user_id)
-
-    user = User.objects.filter(id = user_id)[0]
-    print(user.username)
-    subjects = SchoolSubject.objects.order_by('id')
-    subjects = list(subjects)
-
-    user_posts = BlogPost.objects.filter(post_author = user.id)
-
-    data = {
-        'seen_user':user,
-        'subject_list':subjects,
-        'user_posts':user_posts
-    }
-
-    return render(request, 'main/profile/user_profile.html', data)

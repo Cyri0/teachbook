@@ -30,6 +30,9 @@
     
     .message_text{
         min-height: 30vh;
+        width: 100%;
+        resize: none;
+        border: none;
     }
 
     .reply{
@@ -60,26 +63,35 @@
         color: white;
         margin-bottom: 0px;
         padding: 10px;
-        display: inline-block;
         width: 100%;
+        padding-left: 21px;
+        min-height: 80px;
+        padding-top: 0px;
+        display: inline-block;
     }
 
-    .sender_and_date{
-        height: 100%;
-        width: calc(100% / 2);
-        color: rgba(255, 255, 255, 0.8);
-        float: left;
-        text-align: right;
-    }
-
-    .sender_and_date a, .sender_and_date a:hover{
+    .title input {
+        width: calc(100% - 10px);
+        height: 60px;
+        margin-top: 20px;
+        font-size: 30px;
+        background-color: rgba(255, 255, 255, 0.03);
+        border: none;
+        padding: 0px 10px;
         color: white;
     }
 
-    .msg_title{
-        width: calc(100% / 2);
-        font-size: 30px;
-        float: left;
+    .target_holder{
+        margin-top: 10px;
+        width: 100%;
+        height: 30px;
+        text-align: right;
+        padding-right: 10px;;
+    }
+
+    .target_holder a {
+        color: white;
+        font-weight: bold;
     }
 
     @media screen and (max-width: 800px) {
@@ -95,8 +107,29 @@
 
 {% include 'main/navbar.html' %}
 
-<div class="container" style="margin-top: 80px;" id="msg_app">
-    Target: {{ target.username }}
+<div class="container" style="margin-top: 80px;" id="send_msg_app">
+    
+    <div class="row message_box">
+        <div class="title">
+            <input type="text" id="msg_title" placeholder="Cím">
+            <div class="target_holder">
+                Címzett: <a href="{% url 'openUserProfile' target.id %}">{{ target.username }}</a>
+            </div>
+        </div>
+        <div class="content">
+            <textarea id="contentText" class="message_text" cols="30" rows="10"></textarea>
+            <div class="reply">
+                <button v-on:click="sendMessage()">Küldés</button>
+            </div>
+        </div>
+    </div>
+
+
+    <input type="hidden" id="target_id" value="{{ target.id }}">
+
+    <input type="hidden" id="send_url" value="{% url 'send_this_msg' target.id %}">
+
+
 </div>
 {% endblock content %}
 
@@ -113,6 +146,21 @@ let send_messages_app = new Vue({
     mounted(){
     },
     methods: {
+        sendMessage: function(){
+            let url = document.getElementById("send_url").value;
+
+            let data = {
+                "target":document.getElementById("target_id").value,
+                "title":document.getElementById("msg_title").value,
+                "content":document.getElementById("contentText").value
+            }
+
+            axios.defaults.xsrfCookieName = 'csrftoken';
+            axios.defaults.xsrfHeaderName = "X-CSRFTOKEN";
+            console.log(JSON.stringify(data));
+            axios.post(url, JSON.stringify(data) ).then(response => this.articleId = response.data.id);
+
+        }
     }
 });
 

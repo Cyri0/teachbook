@@ -38,7 +38,7 @@
         margin-top: 20px;
     }
 
-    .reply a button {
+    .reply button {
         margin: 0px;
         height: 60px;
         float: right;
@@ -48,10 +48,6 @@
         font-weight: bold;
         transition: 0.5s;
         border-radius: 5px;
-    }
-
-    .reply a button:first-child {
-        float: left;
     }
 
     .reply button:hover{
@@ -121,14 +117,11 @@
 
             <div class="reply">
                 
-                <a href="{% url 'messagesView' %}"><button>Vissza</button></a>
+                <a href="{% url 'messagesView' %}" style="float: left;"><button>Vissza</button></a>
                 <a href="{% url 'send_msg' msg.sender.id %}"><button>Válasz</button></a>
                 
             </div>
         </div>
-
-
-
     </div>
 
 </div>

@@ -32,6 +32,7 @@ var app = new Vue({
         this.changeColor();
     },
     methods: {
+
         handleNewPostPanel: function () {
             this.newPostPanelVisible = !this.newPostPanelVisible;
             console.log(this.newPostPanelVisible);
@@ -82,6 +83,25 @@ var app = new Vue({
         },
         redirectToProfilePage: function(user_id){
             alert(user_id);
-        }
+        },
+        like: function(post_id){
+
+            let url = likeUrl;
+            let data = {
+                "post_id":post_id
+            }
+            axios.defaults.xsrfCookieName = 'csrftoken';
+            axios.defaults.xsrfHeaderName = "X-CSRFTOKEN";
+            console.log(JSON.stringify(data));
+            axios.post(url, JSON.stringify(data) ).then(response => this.articleId = response.data.id);
+
+
+            let id = "like_"+post_id;
+            let likes_on_post = 0;
+            likes_on_post = document.getElementById(id).innerHTML * 1;
+            likes_on_post++;
+            document.getElementById(id).innerHTML = likes_on_post;
+            
+        },
     }
 });
