@@ -1,0 +1,79 @@
+body{
+    background: #F0F0F0;
+}
+
+.message_box{
+    padding-top: 5vw;
+    display: block;
+}
+
+.row {
+    max-width: 800px;
+    margin: auto;
+}
+
+.content{
+    border: 2px solid var(--dark-green);
+    padding: 20px;
+    background: white;
+}
+
+.message_text{
+    min-height: 30vh;
+}
+
+.reply{
+    height: 60px;
+    width: 100%;
+    margin-top: 20px;
+}
+
+.reply button {
+    margin: 0px;
+    height: 60px;
+    float: right;
+    width: 100px;
+    border: 3px solid var(--dark-green);
+    color: var(--dark-green);
+    font-weight: bold;
+    transition: 0.5s;
+    border-radius: 5px;
+}
+
+.reply button:hover{
+    background-color: var(--dark-green);
+    color: white;
+}
+
+.title{
+    background-color: var(--dark-green);
+    color: white;
+    margin-bottom: 0px;
+    padding: 10px;
+    display: inline-block;
+    width: 100%;
+}
+
+.sender_and_date{
+    height: 100%;
+    width: calc(100% / 2);
+    color: rgba(255, 255, 255, 0.8);
+    float: left;
+    text-align: right;
+}
+
+.sender_and_date a, .sender_and_date a:hover{
+    color: white;
+}
+
+.msg_title{
+    width: calc(100% / 2);
+    font-size: 30px;
+    float: left;
+}
+
+@media screen and (max-width: 800px) {
+    .msg_title{
+    font-size: 20px;
+    }
+}

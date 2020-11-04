@@ -7,44 +7,7 @@
 
 {% block head-content %}
 
-<style>
-
-.msg_menu{
-    height: 50px;
-    margin-top: 20px;
-    border: 2px solid var(--dark-green);
-    padding: 0;
-    margin-bottom: 40px;
-}
-
-.income_outcome_btn{
-    width: 50%;
-    text-align: center;
-    height: 100%;
-    float: left;
-    line-height: 48px;
-    font-weight: bold;
-}
-
-.income_outcome_btn:hover{
-    cursor: pointer;
-    text-decoration: underline;
-}
-
-.active_btn{
-    background-color: var(--dark-green);
-    color: white;
-}
-
-.table_holder{
-    width: 100%;
-    display: none;
-}
-.active_table{
-    display: inline;
-}
-
-</style>
+<link rel="stylesheet" type="text/css" href={% static 'css/messages.css' %}>
 
 {% endblock head-content %}
 
