@@ -42,6 +42,11 @@
             <textarea name="post_content" v-model="new_content" cols="30" rows="10"></textarea>
         </div>
         <div class="post-footer" id="post_footer">
+
+            <div class="uploadFile">
+                <input type="file" name="upload_file" id="fileUploader">
+            </div>
+
             <div class="sendNewPost">
                     <svg aria-hidden="true" v-on:click="sendPostToDb" focusable="false" data-prefix="fas" data-icon="paper-plane"
                         class="svg-inline--fa fa-paper-plane fa-w-16" role="img" xmlns="http://www.w3.org/2000/svg"
@@ -92,6 +97,7 @@
                 <img src="{% static 'icons/heart-regular.svg' %}">
             </button>
             <div class="likes" id="like_{{ post.id }}">{{ post.likes }}</div>
+            <input type="hidden" value="{{ post.likers }}" id="likers_data_{{ post.id }}">
         </div>
     </div>
     {% endfor %}
@@ -101,7 +107,9 @@
 
 {% block scripts %}
 <script>
+let user_id = "{{ user.id }}"
 let url = "{% url 'testPostRequest' %}";
+let fileUploaderUrl = "{% url 'getUploadedFile' %}"
 let subjects = '{% for subject in subjects %}{{subject.id}}|{{subject.subject_name}}|{{subject.subject_color}} {% endfor%}'.split(" ");
 let arr = [];
 for(let i = 0; i < subjects.length-1; i++){

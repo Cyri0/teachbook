@@ -24,8 +24,15 @@ var app = new Vue({
                         let color = subjects[subj][2];
                         header.style.backgroundColor = color;
                         footer.style.backgroundColor = color;
+
+                        // users_who_like = JSON.parse(document.getElementById("likers_data_"+posts[i].id).value)["data"]
+                        // if(users_who_like.includes(user_id)){
+                        //     footer.style.backgroundColor = "red";
+                        // }
                     }
                 }
+
+
 
             }
         }
@@ -60,6 +67,7 @@ var app = new Vue({
             document.getElementById("post_footer").style.backgroundColor = bgColor;
         },
         sendPostToDb: function(){
+            
             let newContentData = {
                 "user_id" : document.getElementById("user_id").value,
                 "content" : this.new_content,
@@ -72,10 +80,38 @@ var app = new Vue({
                         "\ncontent: " + newContentData.content +
                         "\ntitle: " + newContentData.title +
                         "\nsubject: " + newContentData.subject)
+
+            // POST JSON DATA
             axios.defaults.xsrfCookieName = 'csrftoken';
             axios.defaults.xsrfHeaderName = "X-CSRFTOKEN";
             console.log(JSON.stringify(newContentData));
             axios.post(url, JSON.stringify(newContentData) ).then(response => this.articleId = response.data.id);
+
+            //POST FILE
+            let my_file = document.getElementById("fileUploader").files;
+
+            if(my_file[0] == null){
+                console.log("ÜRES")
+
+            }else{
+                my_file = my_file[0];
+                let formData = new FormData();
+                formData.append("file", my_file)
+
+                axios.defaults.xsrfCookieName = 'csrftoken';
+                axios.defaults.xsrfHeaderName = "X-CSRFTOKEN";
+    
+                axios.post(
+                    fileUploaderUrl,
+                    formData,
+                    {
+                        headers: {
+                            'Content-Type': 'multipart/form-data'
+                        }
+                    }
+                ).then(response => this.articleId = response.data.id);
+            }
+
             location.reload();
         },
         downloadFile: function (post_id){
@@ -92,16 +128,15 @@ var app = new Vue({
             }
             axios.defaults.xsrfCookieName = 'csrftoken';
             axios.defaults.xsrfHeaderName = "X-CSRFTOKEN";
-            console.log(JSON.stringify(data));
+            // console.log(JSON.stringify(data));
             axios.post(url, JSON.stringify(data) ).then(response => this.articleId = response.data.id);
-
 
             let id = "like_"+post_id;
             let likes_on_post = 0;
             likes_on_post = document.getElementById(id).innerHTML * 1;
             likes_on_post++;
             document.getElementById(id).innerHTML = likes_on_post;
-            
+
         },
     }
 });

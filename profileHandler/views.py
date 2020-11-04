@@ -1,5 +1,8 @@
 from django.shortcuts import render
-from teachbook.views import *
+from teachbook import views
+from django.contrib.auth.models import User
+from subjects.models import SchoolSubject
+from blogposts.models import BlogPost
 
 
 # Create your views here.
@@ -12,8 +15,8 @@ def uploadProfilePics(request):
 
         request.user.profile.image = file_object
         request.user.profile.save()
-
-    return profile_view(request)
+    
+    return views.profile_view(request)
 
 def openUserProfile(request, user_id):
     print(user_id)

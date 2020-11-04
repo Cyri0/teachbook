@@ -5,21 +5,13 @@ from .models import BlogPost
 from teachbook.views import *
 import json 
 
-
-
-# Create your views here.
 @require_POST
 def addNewPost(request):
-    # form = PostTitleForm(request.POST)
     print("MEGHÍVVA!")
-    # print(request.POST['post_title'])
-    # print(form)
 
     return redirect('home_view')
 
 def sendLike(request):
-    print("LIKE!")
-
     post_json = None 
     for x in request.POST.keys():
         post_json = x
@@ -27,7 +19,21 @@ def sendLike(request):
 
     post = BlogPost.objects.filter(id = post_dict["post_id"])[0]
 
-    post.likes = post.likes + 1
+    likers_json = json.loads(post.likers)
+
+    if request.user.id in likers_json["data"]:
+        likers_json["data"].remove(request.user.id)
+        print(likers_json["data"])        
+
+        post.likers = json.dumps(likers_json)
+        post.likes = post.likes - 1
+    else:
+        likers_json["data"].append(request.user.id)
+        print(likers_json["data"])        
+
+        post.likers = json.dumps(likers_json)
+        post.likes = post.likes + 1
+
     post.save()
 
     return redirect("/")
@@ -57,5 +63,16 @@ def testPostRequest(request):
         post_title = post_dict["title"],
         likes = 0
         )
+
     new_post.save()
+    return redirect("/")
+
+def getUploadedFile(request):
+    print("File:")
+    print(request.FILES['file'])
+    posts = BlogPost.objects.filter(post_author=request.user.id)
+    posts = list(posts)
+    post = posts[-1]
+    post.file = request.FILES['file']
+    post.save()
     return redirect("/")
