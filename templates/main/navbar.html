@@ -4,7 +4,6 @@
 <style>
 </style>
 
-
 <nav>
   <div class="container wrapper" id="my_navbar">
     <ul>
@@ -40,4 +39,21 @@
   </div>
 </nav>
 
-<script src="{% static 'js/navbar.js' %}"></script>
+
+<script>
+  var menu = new Vue({
+    delimiters: ["[[", "]]"],
+    el: "#my_navbar",
+    data: {
+      isVisible: false,
+    },
+    mounted(){
+       document.getElementById("navbar_profile_pic").style.backgroundImage = 'url("'+"{{ request.user.profile.image.url }}"+'")';
+      },
+    methods: {
+      useDropdown: function () {
+        this.isVisible = !this.isVisible;
+      },
+    },
+  });
+</script>
