@@ -73,9 +73,18 @@
         padding-left: 10px;
     }
 
+
+    .empty_page{
+        text-align: center;
+        display: none;
+    }
+    .visible_empty_page{
+        display: block;
+    }
+
     .post-content textarea {
         width: 100%;
-        height: 100%;
+        max-height: 100%;
         resize: none;
         background-color: var(--transparent);
         border: none;
@@ -112,11 +121,11 @@
     }
 
     .sendNewPost {
-        width: 60px;
-        height: 60px;
+        width: 45px;
+        height: 45px;
         color: rgb(129, 129, 129);
         float: right;
-        margin-top: 10px;
+        margin-top: 20px;
         margin-right: 20px;
         transition: 0.5s;
     }
@@ -311,8 +320,23 @@
         display: none;
     }
 
+    .removeSelectedFile:hover{
+        background-color: rgba(255, 0, 0, 0.8);
+    }
+
     .removeDisplayed{
         display: inline-block;
+    }
+
+    .choosenFile{
+        height: 30px;
+        border-top: 2px solid var(--dark-green);
+        margin: 0;
+        display: none;
+    }
+
+    .fileNamePreViewDisplay{
+        display: block;
     }
 
     @media screen and (max-width: 767px){

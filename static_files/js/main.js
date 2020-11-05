@@ -7,13 +7,14 @@ var app = new Vue({
         new_title: null,
         new_content: null,
         fileIsChoosed: false,
+        emptyPage: false
     },
     mounted(){
 
         console.log(subjects);
 
         let posts = document.getElementsByClassName("post");
-        console.log("posztok: ");
+
         for (let i = 0; i < posts.length; i++){
             if(posts[i].id != "newPost"){
                 let header = posts[i].childNodes[0];
@@ -30,6 +31,10 @@ var app = new Vue({
             }
         }
         this.changeColor();
+
+        if(document.getElementsByClassName("post").length == 1){
+            this.emptyPage = true;
+        }
     },
     methods: {
 
@@ -134,6 +139,7 @@ var app = new Vue({
         fileChanged: function(){
             let new_file_name = document.getElementById("fileUploader").files[0].name;
             console.log(new_file_name + " is choosed for upload!");
+            document.getElementById("uploadFileName").innerText = new_file_name;
             this.fileIsChoosed = true;
         },
         removeSelectedFile: function(){
