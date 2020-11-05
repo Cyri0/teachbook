@@ -5,7 +5,8 @@ var app = new Vue({
         newPostPanelVisible: false,
         new_subject: null,
         new_title: null,
-        new_content: null
+        new_content: null,
+        fileIsChoosed: false,
     },
     mounted(){
 
@@ -24,16 +25,8 @@ var app = new Vue({
                         let color = subjects[subj][2];
                         header.style.backgroundColor = color;
                         footer.style.backgroundColor = color;
-
-                        // users_who_like = JSON.parse(document.getElementById("likers_data_"+posts[i].id).value)["data"]
-                        // if(users_who_like.includes(user_id)){
-                        //     footer.style.backgroundColor = "red";
-                        // }
                     }
                 }
-
-
-
             }
         }
         this.changeColor();
@@ -128,7 +121,7 @@ var app = new Vue({
             }
             axios.defaults.xsrfCookieName = 'csrftoken';
             axios.defaults.xsrfHeaderName = "X-CSRFTOKEN";
-            // console.log(JSON.stringify(data));
+            
             axios.post(url, JSON.stringify(data) ).then(response => this.articleId = response.data.id);
 
             let id = "like_"+post_id;
@@ -138,5 +131,14 @@ var app = new Vue({
             document.getElementById(id).innerHTML = likes_on_post;
 
         },
+        fileChanged: function(){
+            let new_file_name = document.getElementById("fileUploader").files[0].name;
+            console.log(new_file_name + " is choosed for upload!");
+            this.fileIsChoosed = true;
+        },
+        removeSelectedFile: function(){
+            document.getElementById("fileUploader").value = null;
+            this.fileIsChoosed = false;
+        }
     }
 });
