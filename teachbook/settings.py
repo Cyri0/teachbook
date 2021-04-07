@@ -39,11 +39,11 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'blogposts',
     'profileHandler',
     'colorfield',
     'subjects',
-    'messageSender'
+    'messageSender',
+    'blogposts'
 ]
 
 MIDDLEWARE = [

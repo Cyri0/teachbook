@@ -24,3 +24,8 @@ Social media app for teachers, share documents, presentations etc.
   ```sh
   $ pip install pillow
   ```
+
+  - install django-colorfield
+  ```sh
+  $ pip install django-colorfield
+  ```
